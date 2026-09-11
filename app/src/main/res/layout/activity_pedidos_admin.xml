@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="#F7F7F7"
+
+    tools:context=".AdminMenu.ActivityPedidosAdmin">
+
+
+    <!-- =========================================================
+         FONDO
+         ========================================================= -->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:src="@drawable/fondo_menu"
+        android:scaleType="centerCrop"
+        android:alpha="0.12"
+
+        android:contentDescription="@null" />
+
+
+    <!-- =========================================================
+         CONTENIDO PRINCIPAL
+         ========================================================= -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical">
+
+
+        <!-- =====================================================
+             TÍTULO
+             ===================================================== -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="4dp"
+
+            android:text="PEDIDOS"
+            android:textColor="#222222"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+
+        <!-- =====================================================
+             SUBTÍTULO
+             ===================================================== -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="12dp"
+
+            android:text="Pedidos recibidos en tiempo real"
+            android:textColor="#777777"
+            android:textSize="14sp" />
+
+
+        <!-- =====================================================
+             BOTÓN HISTORIAL
+             ===================================================== -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnHistorial"
+
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+
+            android:text="📋  VER HISTORIAL"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+
+            app:backgroundTint="#222222"
+            app:cornerRadius="14dp" />
+
+
+        <!-- =====================================================
+             LISTA DE PEDIDOS
+             ===================================================== -->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPedidos"
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+
+            android:clipToPadding="false"
+            android:paddingBottom="24dp"
+
+            android:scrollbars="vertical"
+
+            tools:listitem="@layout/item_pedido_admin" />
+
+    </LinearLayout>
+
+
+    <!-- =========================================================
+         MENSAJE CUANDO NO HAY PEDIDOS
+         ========================================================= -->
+
+    <TextView
+        android:id="@+id/tvSinPedidos"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="center"
+
+        android:gravity="center"
+
+        android:padding="30dp"
+
+        android:text="📦&#10;&#10;No hay pedidos&#10;&#10;Los nuevos pedidos aparecerán aquí automáticamente."
+        android:textColor="#555555"
+        android:textSize="16sp" />
+
+</FrameLayout>

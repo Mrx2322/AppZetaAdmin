@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">AppZetaR</string>
+
+    <!--TodoApp-->
+    <string name="todo_title">Bienvenido...</string>
+    <string name="todo_categories">Popular Entradas :</string>
+    <string name="todo_Menu">Menu :</string>
+    <string name="Ingresar">VISTA ADMIN</string>
+    <string name="menu_carta_entradas">Tallarines</string>
+
+
+    <string name="todo_dialog_add_task">Añade la tarea</string>
+    <string name="todo_dialog_category_business">Negocios</string>
+    <string name="todo_dialog_category_other">Otros</string>
+    <string name="todo_dialog_category_personal">Personal</string>
+    <string name="todo_dialog_add_task_button">Crear tarea</string>
+
+    <!--Card de Menu-->
+    <string name="texto_editar">Editar</string>
+    <string name="texto_eliminar">Eliminar</string>
+    <string name="txt_plato">PLATO</string>
+
+    <!--Card de Extras-->
+    <string name="Editar_extra">Editar Extra</string>
+    <string name="Nombre_del_extra">Nombre del extra</string>
+    <string name="precios_static">S/ 0.00</string>
+    <string name="Description_extra">Eliminar extra</string>
+
+    <!--Confirma pedidos-->
+    <string name="Confirmar_pedido">Confirmar pedido</string>
+    <string name="datos_confirmar">Revisa los datos antes de confirmar</string>
+    <string name="datos_cliente">Datos del cliente</string>
+    <string name="nombre_cliente">Nombre</string>
+    <string name="delivery">Delivery</string>
+    <string name="rc_tienda">Recojo en tienda</string>
+    <string name="correo_cliente">correo@email.com</string>
+    <string name="c_recibirlo">¿Cómo quieres recibirlo?</string>
+    <string name="rs_compra">Resumen de compra</string>
+    <string name="product">Productos</string>
+    <string name="cnt_compra">0 productos</string>
+    <string name="detal_compras">Detalles de entrega</string>
+    <string name="dc">📍 Dirección</string>
+    <string name="especificacion">No especificada</string>
+    <string name="rf">📝 Referencia</string>
+    <string name="srf">Sin referencia</string>
+    <string name="telefono">📞 Teléfono</string>
+    <string name="n_especifico">No especificado</string>
+    <string name="c_entrega">Contra entrega</string>
+    <string name="pg_entrega_pedido">Paga cuando recibas tu pedido</string>
+    <string name="disponible">✓ Disponible</string>
+    <string name="pg_yp">Pagar con Yape</string>
+    <string name="op_pronto">Esta opción estará disponible muy pronto</string>
+    <string name="prx">🔜 Próximamente</string>
+    <string name="total">Total</string>
+    <string name="soles">S/ 0.00</string>
+    <string name="confirmar_pedido">CONFIRMAR PEDIDO</string>
+
+
+
+</resources>

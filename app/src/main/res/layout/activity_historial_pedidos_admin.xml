@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="#F7F7F7"
+
+    tools:context=".AdminMenu.ActivityHistorialPedidosAdmin">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:src="@drawable/fondo_menu"
+        android:scaleType="centerCrop"
+        android:alpha="0.12"
+
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical">
+
+        <!-- TÍTULO -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="4dp"
+
+            android:text="HISTORIAL"
+            android:textColor="#222222"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <!-- SUBTÍTULO -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+
+            android:text="Pedidos entregados"
+            android:textColor="#777777"
+            android:textSize="14sp" />
+
+        <!-- LISTA DE PEDIDOS ENTREGADOS -->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHistorialPedidos"
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+
+            android:clipToPadding="false"
+
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="24dp"
+
+            android:scrollbars="vertical"
+
+            tools:listitem="@layout/item_pedido_admin" />
+
+    </LinearLayout>
+
+    <!-- MENSAJE CUANDO NO HAY HISTORIAL -->
+
+    <TextView
+        android:id="@+id/tvSinHistorial"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="center"
+
+        android:gravity="center"
+
+        android:padding="30dp"
+
+        android:text="📋&#10;&#10;No hay pedidos entregados&#10;&#10;Los pedidos que sean entregados aparecerán aquí."
+        android:textColor="#555555"
+        android:textSize="16sp" />
+
+</FrameLayout>
