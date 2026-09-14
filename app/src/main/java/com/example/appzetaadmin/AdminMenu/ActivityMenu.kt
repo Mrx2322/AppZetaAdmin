@@ -28,6 +28,7 @@ import com.example.appzetaadmin.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import java.util.Locale
 
 class ActivityMenu : AppCompatActivity() {
@@ -38,6 +39,12 @@ class ActivityMenu : AppCompatActivity() {
 
     private val db =
         FirebaseFirestore.getInstance()
+
+    private var listenerMenu: ListenerRegistration? = null
+
+    private var listenerEntradas: ListenerRegistration? = null
+
+    private var listenerExtras: ListenerRegistration? = null
 
 
     // =========================================================
@@ -158,6 +165,22 @@ class ActivityMenu : AppCompatActivity() {
         cargarEntradasDesdeFirebase()
 
         cargarExtrasDesdeFirebase()
+    }
+
+
+    // =========================================================
+    // ON DESTROY
+    // =========================================================
+
+    override fun onDestroy() {
+
+        super.onDestroy()
+
+        listenerMenu?.remove()
+
+        listenerEntradas?.remove()
+
+        listenerExtras?.remove()
     }
 
 
@@ -778,94 +801,95 @@ class ActivityMenu : AppCompatActivity() {
             View.VISIBLE
 
 
-        db.collection("menu")
-            .addSnapshotListener { resultado, error ->
+        listenerMenu =
+            db.collection("menu")
+                .addSnapshotListener { resultado, error ->
 
-                if (error != null) {
+                    if (error != null) {
 
-                    Log.e(
-                        "FIREBASE",
-                        "Error escuchando menú",
-                        error
-                    )
-
-                    progressBarMenu.visibility =
-                        View.GONE
-
-                    return@addSnapshotListener
-                }
-
-
-                if (resultado == null) {
-
-                    progressBarMenu.visibility =
-                        View.GONE
-
-                    return@addSnapshotListener
-                }
-
-
-                listaMenu.clear()
-
-
-                for (documento in resultado) {
-
-                    val id =
-                        documento
-                            .getLong("id")
-                            ?.toInt()
-                            ?: documento.id.toIntOrNull()
-                            ?: 0
-
-
-                    val nombre =
-                        documento
-                            .getString("nombre")
-                            ?: ""
-
-
-                    val precio =
-                        documento
-                            .getDouble("precio")
-                            ?: 0.0
-
-
-                    val stock =
-                        documento
-                            .getLong("stock")
-                            ?.toInt()
-                            ?: 0
-
-
-                    if (
-                        id > 0 &&
-                        nombre.isNotEmpty()
-                    ) {
-
-                        listaMenu.add(
-                            TaskMenu(
-                                id = id,
-                                name = nombre,
-                                precio = precio,
-                                stock = stock
-                            )
+                        Log.e(
+                            "FIREBASE",
+                            "Error escuchando menú",
+                            error
                         )
+
+                        progressBarMenu.visibility =
+                            View.GONE
+
+                        return@addSnapshotListener
                     }
+
+
+                    if (resultado == null) {
+
+                        progressBarMenu.visibility =
+                            View.GONE
+
+                        return@addSnapshotListener
+                    }
+
+
+                    listaMenu.clear()
+
+
+                    for (documento in resultado) {
+
+                        val id =
+                            documento
+                                .getLong("id")
+                                ?.toInt()
+                                ?: documento.id.toIntOrNull()
+                                ?: 0
+
+
+                        val nombre =
+                            documento
+                                .getString("nombre")
+                                ?: ""
+
+
+                        val precio =
+                            documento
+                                .getDouble("precio")
+                                ?: 0.0
+
+
+                        val stock =
+                            documento
+                                .getLong("stock")
+                                ?.toInt()
+                                ?: 0
+
+
+                        if (
+                            id > 0 &&
+                            nombre.isNotEmpty()
+                        ) {
+
+                            listaMenu.add(
+                                TaskMenu(
+                                    id = id,
+                                    name = nombre,
+                                    precio = precio,
+                                    stock = stock
+                                )
+                            )
+                        }
+                    }
+
+
+                    menuAdapter.notifyDataSetChanged()
+
+
+                    progressBarMenu.visibility =
+                        View.GONE
+
+
+                    Log.d(
+                        "FIREBASE",
+                        "Menú actualizado: ${listaMenu.size}"
+                    )
                 }
-
-
-                menuAdapter.notifyDataSetChanged()
-
-
-                progressBarMenu.visibility =
-                    View.GONE
-
-
-                Log.d(
-                    "FIREBASE",
-                    "Menú actualizado: ${listaMenu.size}"
-                )
-            }
     }
 
 
@@ -1024,107 +1048,108 @@ class ActivityMenu : AppCompatActivity() {
 
     private fun cargarEntradasDesdeFirebase() {
 
-        db.collection("entradas")
-            .addSnapshotListener { resultado, error ->
+        listenerEntradas =
+            db.collection("entradas")
+                .addSnapshotListener { resultado, error ->
 
-                if (error != null) {
+                    if (error != null) {
 
-                    Log.e(
-                        "FIREBASE",
-                        "Error escuchando entradas",
-                        error
-                    )
-
-                    return@addSnapshotListener
-                }
-
-
-                if (resultado == null) {
-                    return@addSnapshotListener
-                }
-
-
-                entradas.clear()
-
-
-                for (documento in resultado) {
-
-                    val id =
-                        documento
-                            .getLong("id")
-                            ?.toInt()
-                            ?: documento.id.toIntOrNull()
-                            ?: 0
-
-
-                    val nombre =
-                        documento
-                            .getString("nombre")
-                            ?: ""
-
-
-                    val disponible =
-                        documento
-                            .getBoolean("disponible")
-                            ?: true
-
-
-                    val stock =
-                        documento
-                            .getLong("stock")
-                            ?.toInt()
-                            ?: 0
-
-
-                    if (
-                        id > 0 &&
-                        nombre.isNotEmpty()
-                    ) {
-
-                        val entrada =
-                            when (id) {
-
-                                1 ->
-                                    TaskEntradas.Ceviche(
-                                        id = id,
-                                        nombre = nombre,
-                                        disponible = disponible,
-                                        stock = stock
-                                    )
-
-                                2 ->
-                                    TaskEntradas.Huancaina(
-                                        id = id,
-                                        nombre = nombre,
-                                        disponible = disponible,
-                                        stock = stock
-                                    )
-
-                                else ->
-                                    TaskEntradas.Otros(
-                                        id = id,
-                                        nombre = nombre,
-                                        disponible = disponible,
-                                        stock = stock
-                                    )
-                            }
-
-
-                        entradas.add(
-                            entrada
+                        Log.e(
+                            "FIREBASE",
+                            "Error escuchando entradas",
+                            error
                         )
+
+                        return@addSnapshotListener
                     }
+
+
+                    if (resultado == null) {
+                        return@addSnapshotListener
+                    }
+
+
+                    entradas.clear()
+
+
+                    for (documento in resultado) {
+
+                        val id =
+                            documento
+                                .getLong("id")
+                                ?.toInt()
+                                ?: documento.id.toIntOrNull()
+                                ?: 0
+
+
+                        val nombre =
+                            documento
+                                .getString("nombre")
+                                ?: ""
+
+
+                        val disponible =
+                            documento
+                                .getBoolean("disponible")
+                                ?: true
+
+
+                        val stock =
+                            documento
+                                .getLong("stock")
+                                ?.toInt()
+                                ?: 0
+
+
+                        if (
+                            id > 0 &&
+                            nombre.isNotEmpty()
+                        ) {
+
+                            val entrada =
+                                when (id) {
+
+                                    1 ->
+                                        TaskEntradas.Ceviche(
+                                            id = id,
+                                            nombre = nombre,
+                                            disponible = disponible,
+                                            stock = stock
+                                        )
+
+                                    2 ->
+                                        TaskEntradas.Huancaina(
+                                            id = id,
+                                            nombre = nombre,
+                                            disponible = disponible,
+                                            stock = stock
+                                        )
+
+                                    else ->
+                                        TaskEntradas.Otros(
+                                            id = id,
+                                            nombre = nombre,
+                                            disponible = disponible,
+                                            stock = stock
+                                        )
+                                }
+
+
+                            entradas.add(
+                                entrada
+                            )
+                        }
+                    }
+
+
+                    entradasAdapter.notifyDataSetChanged()
+
+
+                    Log.d(
+                        "FIREBASE",
+                        "Entradas actualizadas: ${entradas.size}"
+                    )
                 }
-
-
-                entradasAdapter.notifyDataSetChanged()
-
-
-                Log.d(
-                    "FIREBASE",
-                    "Entradas actualizadas: ${entradas.size}"
-                )
-            }
     }
 
 
@@ -1568,91 +1593,92 @@ class ActivityMenu : AppCompatActivity() {
 
     private fun cargarExtrasDesdeFirebase() {
 
-        db.collection("extras")
-            .addSnapshotListener { resultado, error ->
+        listenerExtras =
+            db.collection("extras")
+                .addSnapshotListener { resultado, error ->
 
-                if (error != null) {
+                    if (error != null) {
 
-                    Log.e(
-                        "FIREBASE",
-                        "Error escuchando extras",
-                        error
-                    )
-
-                    return@addSnapshotListener
-                }
-
-
-                if (resultado == null) {
-                    return@addSnapshotListener
-                }
-
-
-                listaExtras.clear()
-
-
-                for (documento in resultado) {
-
-                    val id =
-                        documento
-                            .getLong("id")
-                            ?.toInt()
-                            ?: documento.id.toIntOrNull()
-                            ?: 0
-
-
-                    val nombre =
-                        documento
-                            .getString("nombre")
-                            ?: ""
-
-
-                    val precio =
-                        documento
-                            .getDouble("precio")
-                            ?: 0.0
-
-
-                    val categoriaId =
-                        documento
-                            .getLong("categoriaId")
-                            ?.toInt()
-                            ?: 1
-
-
-                    val icono =
-                        obtenerIconoPorCategoria(
-                            categoriaId
+                        Log.e(
+                            "FIREBASE",
+                            "Error escuchando extras",
+                            error
                         )
 
-
-                    if (
-                        id > 0 &&
-                        nombre.isNotEmpty()
-                    ) {
-
-                        listaExtras.add(
-                            ExtraItem(
-                                id = id,
-                                nombre = nombre,
-                                precio = precio,
-                                categoriaId = categoriaId,
-                                icono = icono
-                            )
-                        )
+                        return@addSnapshotListener
                     }
+
+
+                    if (resultado == null) {
+                        return@addSnapshotListener
+                    }
+
+
+                    listaExtras.clear()
+
+
+                    for (documento in resultado) {
+
+                        val id =
+                            documento
+                                .getLong("id")
+                                ?.toInt()
+                                ?: documento.id.toIntOrNull()
+                                ?: 0
+
+
+                        val nombre =
+                            documento
+                                .getString("nombre")
+                                ?: ""
+
+
+                        val precio =
+                            documento
+                                .getDouble("precio")
+                                ?: 0.0
+
+
+                        val categoriaId =
+                            documento
+                                .getLong("categoriaId")
+                                ?.toInt()
+                                ?: 1
+
+
+                        val icono =
+                            obtenerIconoPorCategoria(
+                                categoriaId
+                            )
+
+
+                        if (
+                            id > 0 &&
+                            nombre.isNotEmpty()
+                        ) {
+
+                            listaExtras.add(
+                                ExtraItem(
+                                    id = id,
+                                    nombre = nombre,
+                                    precio = precio,
+                                    categoriaId = categoriaId,
+                                    icono = icono
+                                )
+                            )
+                        }
+                    }
+
+
+                    extraAdminAdapter
+                        .notifyDataSetChanged()
+
+
+                    Log.d(
+                        "FIREBASE",
+                        "Extras actualizados: ${listaExtras.size}"
+                    )
                 }
-
-
-                extraAdminAdapter
-                    .notifyDataSetChanged()
-
-
-                Log.d(
-                    "FIREBASE",
-                    "Extras actualizados: ${listaExtras.size}"
-                )
-            }
     }
 
 

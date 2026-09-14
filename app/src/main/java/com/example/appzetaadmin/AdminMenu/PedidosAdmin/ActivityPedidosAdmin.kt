@@ -203,12 +203,14 @@ class ActivityPedidosAdmin : AppCompatActivity() {
                     for (documento in resultado.documents) {
 
                         val estadoPedido =
-                            documento.getString("estadoPedido")
-                                ?.trim()
-                                .orEmpty()
-                                .ifBlank {
-                                    "Pendiente"
-                                }
+                            normalizarEstado(
+                                documento.getString("estadoPedido")
+                                    ?.trim()
+                                    .orEmpty()
+                                    .ifBlank {
+                                        "Pendiente"
+                                    }
+                            )
 
                         /*
                          * Los pedidos entregados permanecen
@@ -509,6 +511,9 @@ class ActivityPedidosAdmin : AppCompatActivity() {
 
             "entregado" ->
                 "Entregado"
+
+            "cancelado" ->
+                "Cancelado"
 
             else ->
                 "Pendiente"

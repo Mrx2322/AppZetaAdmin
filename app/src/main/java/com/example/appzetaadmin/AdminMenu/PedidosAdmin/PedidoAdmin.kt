@@ -4,33 +4,33 @@ import com.google.firebase.Timestamp
 
 data class PedidoAdmin(
 
-    val id: String,
+    val id: String = "",
 
     val numeroPedido: Long = 0L,
 
     val fecha: Timestamp? = null,
 
-    val nombreUsuario: String,
+    val nombreUsuario: String = "",
 
-    val correo: String,
+    val correo: String = "",
 
-    val total: Double,
+    val total: Double = 0.0,
 
-    val tipoEntrega: String,
+    val tipoEntrega: String = "",
 
-    val direccion: String,
+    val direccion: String = "",
 
-    val referencia: String,
+    val referencia: String = "",
 
-    val telefono: String,
+    val telefono: String = "",
 
-    val metodoPago: String,
+    val metodoPago: String = "",
 
-    val estadoPago: String,
+    val estadoPago: String = "",
 
-    val estadoPedido: String,
+    val estadoPedido: String = "",
 
-    val productos: List<Map<String, Any>>
+    val productos: List<Map<String, Any>> = emptyList()
 
 ) {
 

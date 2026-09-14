@@ -14,11 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appzetaadmin.R
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 
 class ActivityHistorialPedidosAdmin : AppCompatActivity() {
 
     private val db =
         FirebaseFirestore.getInstance()
+
+    private var listenerHistorial: ListenerRegistration? = null
 
     private lateinit var rvHistorialPedidos: RecyclerView
     private lateinit var tvSinHistorial: TextView
@@ -68,6 +71,13 @@ class ActivityHistorialPedidosAdmin : AppCompatActivity() {
         escucharHistorial()
     }
 
+    override fun onDestroy() {
+
+        super.onDestroy()
+
+        listenerHistorial?.remove()
+    }
+
     private fun initComponent() {
 
         rvHistorialPedidos =
@@ -98,155 +108,156 @@ class ActivityHistorialPedidosAdmin : AppCompatActivity() {
 
     private fun escucharHistorial() {
 
-        db.collection("pedidos")
-            .addSnapshotListener { resultado, error ->
+        listenerHistorial =
+            db.collection("pedidos")
+                .addSnapshotListener { resultado, error ->
 
-                if (error != null) {
+                    if (error != null) {
 
-                    Log.e(
-                        "HISTORIAL_ADMIN",
-                        "Error escuchando historial",
-                        error
-                    )
-
-                    Toast.makeText(
-                        this,
-                        "Error al cargar historial",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                    return@addSnapshotListener
-                }
-
-                if (resultado == null) {
-                    return@addSnapshotListener
-                }
-
-                listaHistorial.clear()
-
-                for (documento in resultado.documents) {
-
-                    val estadoPedido =
-                        documento.getString(
-                            "estadoPedido"
-                        ) ?: "Pendiente"
-
-                    // Solo mostrar pedidos entregados.
-                    if (
-                        !estadoPedido.equals(
-                            "Entregado",
-                            ignoreCase = true
+                        Log.e(
+                            "HISTORIAL_ADMIN",
+                            "Error escuchando historial",
+                            error
                         )
-                    ) {
-                        continue
+
+                        Toast.makeText(
+                            this,
+                            "Error al cargar historial",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        return@addSnapshotListener
                     }
 
-                    val numeroPedido =
-                        documento.getLong(
-                            "numeroPedido"
-                        ) ?: 0L
+                    if (resultado == null) {
+                        return@addSnapshotListener
+                    }
 
-                    val fecha =
-                        documento.getTimestamp(
-                            "fecha"
-                        )
+                    listaHistorial.clear()
 
-                    val pedido =
-                        PedidoAdmin(
+                    for (documento in resultado.documents) {
 
-                            id =
-                                documento.id,
+                        val estadoPedido =
+                            documento.getString(
+                                "estadoPedido"
+                            ) ?: "Pendiente"
 
-                            numeroPedido =
-                                numeroPedido,
+                        // Solo mostrar pedidos entregados.
+                        if (
+                            !estadoPedido.equals(
+                                "Entregado",
+                                ignoreCase = true
+                            )
+                        ) {
+                            continue
+                        }
 
-                            fecha =
-                                fecha,
+                        val numeroPedido =
+                            documento.getLong(
+                                "numeroPedido"
+                            ) ?: 0L
 
-                            nombreUsuario =
-                                documento.getString(
-                                    "nombreUsuario"
-                                ) ?: "Cliente",
+                        val fecha =
+                            documento.getTimestamp(
+                                "fecha"
+                            )
 
-                            correo =
-                                documento.getString(
-                                    "correo"
-                                ) ?: "",
+                        val pedido =
+                            PedidoAdmin(
 
-                            total =
-                                documento.getDouble(
-                                    "total"
-                                )
-                                    ?: documento.getLong(
+                                id =
+                                    documento.id,
+
+                                numeroPedido =
+                                    numeroPedido,
+
+                                fecha =
+                                    fecha,
+
+                                nombreUsuario =
+                                    documento.getString(
+                                        "nombreUsuario"
+                                    ) ?: "Cliente",
+
+                                correo =
+                                    documento.getString(
+                                        "correo"
+                                    ) ?: "",
+
+                                total =
+                                    documento.getDouble(
                                         "total"
-                                    )?.toDouble()
-                                    ?: 0.0,
+                                    )
+                                        ?: documento.getLong(
+                                            "total"
+                                        )?.toDouble()
+                                        ?: 0.0,
 
-                            tipoEntrega =
-                                documento.getString(
-                                    "tipoEntrega"
-                                ) ?: "Delivery",
+                                tipoEntrega =
+                                    documento.getString(
+                                        "tipoEntrega"
+                                    ) ?: "Delivery",
 
-                            direccion =
-                                documento.getString(
-                                    "direccion"
-                                ) ?: "",
+                                direccion =
+                                    documento.getString(
+                                        "direccion"
+                                    ) ?: "",
 
-                            referencia =
-                                documento.getString(
-                                    "referencia"
-                                ) ?: "",
+                                referencia =
+                                    documento.getString(
+                                        "referencia"
+                                    ) ?: "",
 
-                            telefono =
-                                documento.getString(
-                                    "telefono"
-                                ) ?: "",
+                                telefono =
+                                    documento.getString(
+                                        "telefono"
+                                    ) ?: "",
 
-                            metodoPago =
-                                documento.getString(
-                                    "metodoPago"
-                                ) ?: "Contra entrega",
+                                metodoPago =
+                                    documento.getString(
+                                        "metodoPago"
+                                    ) ?: "Contra entrega",
 
-                            estadoPago =
-                                documento.getString(
-                                    "estadoPago"
-                                ) ?: "Pendiente",
+                                estadoPago =
+                                    documento.getString(
+                                        "estadoPago"
+                                    ) ?: "Pendiente",
 
-                            estadoPedido =
-                                estadoPedido,
+                                estadoPedido =
+                                    estadoPedido,
 
-                            productos =
-                                documento.get(
-                                    "productos"
-                                ) as? List<Map<String, Any>>
-                                    ?: emptyList()
+                                productos =
+                                    documento.get(
+                                        "productos"
+                                    ) as? List<Map<String, Any>>
+                                        ?: emptyList()
+                            )
+
+                        listaHistorial.add(
+                            pedido
                         )
+                    }
 
-                    listaHistorial.add(
-                        pedido
+                    // Ordenar por fecha real.
+                    // Los pedidos más recientes aparecen primero.
+                    listaHistorial.sortByDescending { pedido ->
+
+                        pedido.fecha
+                            ?.toDate()
+                            ?.time
+                            ?: 0L
+                    }
+
+                    adapter.notifyDataSetChanged()
+
+                    actualizarEstadoVacio()
+
+                    Log.d(
+                        "HISTORIAL_ADMIN",
+                        "Pedidos entregados: " +
+                                listaHistorial.size
                     )
                 }
-
-                // Ordenar por fecha real.
-                // Los pedidos más recientes aparecen primero.
-                listaHistorial.sortByDescending { pedido ->
-
-                    pedido.fecha
-                        ?.toDate()
-                        ?.time
-                        ?: 0L
-                }
-
-                adapter.notifyDataSetChanged()
-
-                actualizarEstadoVacio()
-
-                Log.d(
-                    "HISTORIAL_ADMIN",
-                    "Pedidos entregados: " +
-                            listaHistorial.size
-                )
-            }
     }
 
     private fun actualizarEstadoVacio() {
