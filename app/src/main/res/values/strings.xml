@@ -55,6 +55,12 @@
     <string name="soles">S/ 0.00</string>
     <string name="confirmar_pedido">CONFIRMAR PEDIDO</string>
 
+    <!--Agregar Extras-->
+    <string name="agregar_extra">Agregar extra</string>
+    <string name="h_name_extra">Nombre del extra</string>
+
+
+
 
 
 </resources>
