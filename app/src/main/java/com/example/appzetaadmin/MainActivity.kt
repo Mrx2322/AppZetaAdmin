@@ -13,6 +13,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Source
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,17 +23,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressAdmin: View
     private lateinit var tvMensajeAdmin: TextView
 
-    private val auth =
+    private val auth by lazy {
         FirebaseAuth.getInstance()
+    }
 
-    private val db =
+    private val db by lazy {
         FirebaseFirestore.getInstance()
+    }
 
-    override fun onCreate(
-        savedInstanceState: Bundle?
-    ) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main)
 
         iniciarComponentes()
@@ -41,20 +41,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun iniciarComponentes() {
-        etCorreoAdmin =
-            findViewById(R.id.etCorreoAdmin)
-
-        etContrasenaAdmin =
-            findViewById(R.id.etContrasenaAdmin)
-
-        btnIngresarAdmin =
-            findViewById(R.id.btnIngresarAdmin)
-
-        progressAdmin =
-            findViewById(R.id.progressAdmin)
-
-        tvMensajeAdmin =
-            findViewById(R.id.tvMensajeAdmin)
+        etCorreoAdmin = findViewById(R.id.etCorreoAdmin)
+        etContrasenaAdmin = findViewById(R.id.etContrasenaAdmin)
+        btnIngresarAdmin = findViewById(R.id.btnIngresarAdmin)
+        progressAdmin = findViewById(R.id.progressAdmin)
+        tvMensajeAdmin = findViewById(R.id.tvMensajeAdmin)
     }
 
     private fun configurarEventos() {
@@ -64,53 +55,38 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun comprobarSesionExistente() {
-        val usuarioActual =
-            auth.currentUser ?: return
+        val usuarioActual = auth.currentUser ?: return
 
         mostrarCarga(true)
-
-        verificarPermisoAdministrador(
-            uid = usuarioActual.uid,
-            cerrarSesionSiFalla = true
-        )
+        verificarPermisoAdministrador(usuarioActual.uid)
     }
 
     private fun iniciarSesionAdmin() {
-        val correo =
-            etCorreoAdmin.text
-                ?.toString()
-                ?.trim()
-                .orEmpty()
+        val correo = etCorreoAdmin.text
+            ?.toString()
+            ?.trim()
+            .orEmpty()
 
-        val contrasena =
-            etContrasenaAdmin.text
-                ?.toString()
-                .orEmpty()
+        val contrasena = etContrasenaAdmin.text
+            ?.toString()
+            .orEmpty()
 
-        etCorreoAdmin.error = null
-        etContrasenaAdmin.error = null
-        tvMensajeAdmin.visibility = View.GONE
+        limpiarErrores()
 
-        if (correo.isEmpty()) {
-            etCorreoAdmin.error =
-                "Ingresa el correo administrativo"
-
+        if (correo.isBlank()) {
+            etCorreoAdmin.error = "Ingresa el correo administrativo"
             etCorreoAdmin.requestFocus()
             return
         }
 
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
-            etCorreoAdmin.error =
-                "Ingresa un correo válido"
-
+            etCorreoAdmin.error = "Ingresa un correo válido"
             etCorreoAdmin.requestFocus()
             return
         }
 
-        if (contrasena.isEmpty()) {
-            etContrasenaAdmin.error =
-                "Ingresa la contraseña"
-
+        if (contrasena.isBlank()) {
+            etContrasenaAdmin.error = "Ingresa la contraseña"
             etContrasenaAdmin.requestFocus()
             return
         }
@@ -118,127 +94,74 @@ class MainActivity : AppCompatActivity() {
         ocultarTeclado()
         mostrarCarga(true)
 
-        auth.signInWithEmailAndPassword(
-            correo,
-            contrasena
-        )
+        auth.signInWithEmailAndPassword(correo, contrasena)
             .addOnSuccessListener { resultado ->
-
-                val usuario =
-                    resultado.user
+                val usuario = resultado.user
 
                 if (usuario == null) {
-                    mostrarError(
-                        "No se pudo verificar la cuenta"
-                    )
+                    auth.signOut()
+                    mostrarError("No se pudo verificar la cuenta")
                     return@addOnSuccessListener
                 }
 
-                verificarPermisoAdministrador(
-                    uid = usuario.uid,
-                    cerrarSesionSiFalla = true
-                )
+                verificarPermisoAdministrador(usuario.uid)
             }
             .addOnFailureListener { error ->
-
-                Log.e(
-                    "LOGIN_ADMIN",
-                    "Error iniciando sesión",
-                    error
-                )
-
-                mostrarError(
-                    "Correo o contraseña incorrectos"
-                )
+                Log.e(TAG, "Error iniciando sesión", error)
+                mostrarError("Correo o contraseña incorrectos")
             }
     }
 
-    private fun verificarPermisoAdministrador(
-        uid: String,
-        cerrarSesionSiFalla: Boolean
-    ) {
-        db.collection("admins")
+    private fun verificarPermisoAdministrador(uid: String) {
+        db.collection(COLECCION_ADMINISTRADORES)
             .document(uid)
-            .get()
+            .get(Source.SERVER)
             .addOnSuccessListener { documento ->
+                val activo = documento.getBoolean(CAMPO_ACTIVO) == true
+                val rolCorrecto = documento.getString(CAMPO_ROL) == ROL_ADMIN
 
-                val esAdministrador =
-                    documento.exists() &&
-                            documento.getBoolean("activo") == true
-
-                if (esAdministrador) {
+                if (documento.exists() && activo && rolCorrecto) {
                     abrirMenuAdministrador()
                 } else {
-                    if (cerrarSesionSiFalla) {
-                        auth.signOut()
-                    }
-
-                    mostrarError(
-                        "Esta cuenta no tiene permiso de administrador"
-                    )
+                    rechazarAcceso()
                 }
             }
             .addOnFailureListener { error ->
-
-                Log.e(
-                    "LOGIN_ADMIN",
-                    "Error verificando administrador",
-                    error
-                )
-
-                if (cerrarSesionSiFalla) {
-                    auth.signOut()
-                }
-
-                mostrarError(
-                    "No se pudo verificar el acceso administrativo"
-                )
+                Log.e(TAG, "Error verificando administrador", error)
+                auth.signOut()
+                mostrarError("No se pudo verificar el acceso administrativo")
             }
     }
 
-    private fun mostrarCarga(
-        mostrando: Boolean
-    ) {
-        progressAdmin.visibility =
-            if (mostrando) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
-
-        btnIngresarAdmin.isEnabled =
-            !mostrando
-
-        etCorreoAdmin.isEnabled =
-            !mostrando
-
-        etContrasenaAdmin.isEnabled =
-            !mostrando
+    private fun rechazarAcceso() {
+        auth.signOut()
+        etContrasenaAdmin.text?.clear()
+        mostrarError("Esta cuenta no tiene permiso de administrador")
     }
 
-    private fun mostrarError(
-        mensaje: String
-    ) {
+    private fun limpiarErrores() {
+        etCorreoAdmin.error = null
+        etContrasenaAdmin.error = null
+        tvMensajeAdmin.visibility = View.GONE
+    }
+
+    private fun mostrarCarga(mostrando: Boolean) {
+        progressAdmin.visibility = if (mostrando) View.VISIBLE else View.GONE
+        btnIngresarAdmin.isEnabled = !mostrando
+        etCorreoAdmin.isEnabled = !mostrando
+        etContrasenaAdmin.isEnabled = !mostrando
+    }
+
+    private fun mostrarError(mensaje: String) {
         mostrarCarga(false)
+        tvMensajeAdmin.text = mensaje
+        tvMensajeAdmin.visibility = View.VISIBLE
 
-        tvMensajeAdmin.text =
-            mensaje
-
-        tvMensajeAdmin.visibility =
-            View.VISIBLE
-
-        Toast.makeText(
-            this,
-            mensaje,
-            Toast.LENGTH_SHORT
-        ).show()
+        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
     }
 
     private fun ocultarTeclado() {
-        val teclado =
-            getSystemService(
-                INPUT_METHOD_SERVICE
-            ) as InputMethodManager
+        val teclado = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
 
         teclado.hideSoftInputFromWindow(
             currentFocus?.windowToken,
@@ -251,17 +174,20 @@ class MainActivity : AppCompatActivity() {
     private fun abrirMenuAdministrador() {
         mostrarCarga(false)
 
-        val intent =
-            Intent(
-                this,
-                ActivityMenu::class.java
-            ).apply {
-                flags =
-                    Intent.FLAG_ACTIVITY_NEW_TASK or
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK
-            }
+        val intent = Intent(this, ActivityMenu::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
 
         startActivity(intent)
         finish()
+    }
+
+    private companion object {
+        const val TAG = "LOGIN_ADMIN"
+        const val COLECCION_ADMINISTRADORES = "administradores"
+        const val CAMPO_ACTIVO = "activo"
+        const val CAMPO_ROL = "rol"
+        const val ROL_ADMIN = "admin"
     }
 }
