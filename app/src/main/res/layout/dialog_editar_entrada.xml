@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="28dp"
     app:cardElevation="6dp"
@@ -14,22 +13,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:orientation="vertical"
-
         android:paddingStart="28dp"
         android:paddingTop="28dp"
         android:paddingEnd="28dp"
         android:paddingBottom="8dp">
 
-        <!-- CÍRCULO CON ÍCONO -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="56dp"
             android:layout_height="56dp"
-
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"
-
             app:cardBackgroundColor="#F3EDF7"
             app:cardCornerRadius="28dp"
             app:cardElevation="0dp"
@@ -38,50 +32,36 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_gravity="center"
-
-                android:text="✏️"
+                android:text="@string/admin_edit_entry_icon"
                 android:textSize="22sp" />
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- TÍTULO -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:text="Editar Entrada"
+            android:text="@string/admin_edit_entry_title"
             android:textAlignment="center"
-
             android:textColor="#1D1B20"
             android:textSize="22sp"
             android:textStyle="bold" />
 
-        <!-- SUBTÍTULO -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="6dp"
-
-            android:text="Modifica nombre, cantidad y disponibilidad"
+            android:text="@string/admin_edit_entry_subtitle"
             android:textAlignment="center"
-
             android:textColor="#49454F"
             android:textSize="14sp" />
 
-        <!-- NOMBRE -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilNombreEntrada"
-
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="20dp"
-
             app:boxCornerRadiusBottomEnd="16dp"
             app:boxCornerRadiusBottomStart="16dp"
             app:boxCornerRadiusTopEnd="16dp"
@@ -89,32 +69,23 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etNombreEntrada"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:hint="Nombre de la entrada"
-
+                android:hint="@string/admin_entry_name_hint"
+                android:imeOptions="actionNext"
                 android:inputType="textCapWords|textAutoCorrect"
-
                 android:maxLines="1"
-
                 android:textColor="#1D1B20"
                 android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- STOCK -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilStockEntrada"
-
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="12dp"
-
             app:boxCornerRadiusBottomEnd="16dp"
             app:boxCornerRadiusBottomStart="16dp"
             app:boxCornerRadiusTopEnd="16dp"
@@ -122,46 +93,34 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etStockEntrada"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:hint="Cantidad disponible"
-
+                android:hint="@string/admin_entry_stock_hint"
+                android:imeOptions="actionDone"
                 android:inputType="number"
-
                 android:maxLines="1"
-
                 android:textColor="#1D1B20"
                 android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- DISPONIBILIDAD -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="16dp"
-
             android:gravity="center_vertical"
-
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:layout_weight="1"
-
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:text="Disponible"
-
+                    android:text="@string/admin_entry_available_title"
                     android:textColor="#1D1B20"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -169,11 +128,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_marginTop="2dp"
-
-                    android:text="Indica si esta entrada está disponible"
-
+                    android:text="@string/admin_edit_entry_availability_description"
                     android:textColor="#49454F"
                     android:textSize="13sp" />
 
@@ -181,11 +137,10 @@
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switchDisponible"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:checked="true" />
+                android:checked="true"
+                android:contentDescription="@string/admin_entry_availability_switch_description" />
 
         </LinearLayout>
 

@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardEntrada"
     android:layout_width="250dp"
     android:layout_height="112dp"
-
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
     android:layout_marginBottom="8dp"
-
     app:cardBackgroundColor="#FFFFFF"
     app:cardCornerRadius="20dp"
     app:cardElevation="2dp"
@@ -22,81 +18,62 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:orientation="horizontal"
+        android:baselineAligned="false"
         android:gravity="center_vertical"
-
+        android:orientation="horizontal"
         android:paddingStart="14dp"
         android:paddingEnd="12dp">
-
-        <!-- ICONO DE ENTRADA -->
 
         <TextView
             android:layout_width="48dp"
             android:layout_height="48dp"
-
             android:background="@drawable/bg_icono_perfil"
-
+            android:contentDescription="@string/user_entry_icon_description"
             android:gravity="center"
-
-            android:text="🍽"
-            android:textSize="24sp"
-
-            android:contentDescription="Entrada" />
-
-        <!-- INFORMACIÓN -->
+            android:text="@string/user_entry_icon"
+            android:textSize="24sp" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
             android:layout_marginStart="12dp"
             android:layout_weight="1"
-
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvNombrePlato"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:ellipsize="end"
                 android:maxLines="2"
-
                 android:textColor="#202020"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="@string/user_entry_name_preview" />
 
             <TextView
                 android:id="@+id/tvStockEntrada"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="5dp"
-
                 android:ellipsize="end"
                 android:maxLines="1"
-
-                android:text="Disponible"
                 android:textColor="#757575"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:text="@string/user_entry_stock_preview" />
 
         </LinearLayout>
-
-        <!-- AGREGAR -->
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAgregarEntrada"
             android:layout_width="88dp"
-            android:layout_height="42dp"
+            android:layout_height="48dp"
             android:layout_marginStart="8dp"
             android:minWidth="0dp"
-            android:minHeight="0dp"
+            android:minHeight="48dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:text="Agregar"
+            android:text="@string/user_entry_add"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="13sp"

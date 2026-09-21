@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
@@ -13,38 +13,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:baselineAligned="false"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingStart="18dp"
         android:paddingTop="12dp"
         android:paddingEnd="10dp"
         android:paddingBottom="12dp">
 
-        <!-- Barra decorativa -->
         <View
             android:layout_width="5dp"
             android:layout_height="60dp"
             android:layout_marginEnd="14dp"
             android:background="#FFFFFF" />
 
-        <!-- Información del plato -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <!-- Tipo -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/txt_plato"
+                android:letterSpacing="0.08"
+                android:text="@string/admin_menu_item_type"
                 android:textColor="#FF9800"
                 android:textSize="13sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.08" />
+                android:textStyle="bold" />
 
-            <!-- Nombre -->
             <TextView
                 android:id="@+id/tvMenuPlato"
                 android:layout_width="match_parent"
@@ -54,42 +51,40 @@
                 android:maxLines="2"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="@string/admin_menu_item_name_preview" />
 
-            <!-- Precio -->
             <TextView
                 android:id="@+id/tvPrecio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/precios_static"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="@string/admin_menu_item_price_preview" />
 
         </LinearLayout>
 
-        <!-- Botón editar -->
         <ImageButton
             android:id="@+id/btnEditar"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="2dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/texto_editar"
+            android:contentDescription="@string/admin_menu_item_edit_description"
             android:padding="10dp"
-            android:src="@android:drawable/ic_menu_edit"
+            app:srcCompat="@android:drawable/ic_menu_edit"
             app:tint="#FFB74D" />
 
-        <!-- Botón eliminar -->
         <ImageButton
             android:id="@+id/btnEliminar"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/texto_eliminar"
+            android:contentDescription="@string/admin_menu_item_delete_description"
             android:padding="10dp"
-            android:src="@android:drawable/ic_menu_delete"
+            app:srcCompat="@android:drawable/ic_menu_delete"
             app:tint="#FF5252" />
 
     </LinearLayout>

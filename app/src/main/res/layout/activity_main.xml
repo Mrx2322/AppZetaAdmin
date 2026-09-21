@@ -26,16 +26,16 @@
         <ImageView
             android:layout_width="130dp"
             android:layout_height="130dp"
-            android:contentDescription="Logo ZETA"
+            android:contentDescription="@string/admin_logo_content_description"
             android:scaleType="centerInside"
-            android:background="@drawable/ic_admin" />
+            app:srcCompat="@drawable/ic_admin" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             android:gravity="center"
-            android:text="Administración ZETA"
+            android:text="@string/admin_title"
             android:textColor="#202020"
             android:textSize="26sp"
             android:textStyle="bold" />
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:gravity="center"
-            android:text="Acceso exclusivo para el propietario"
+            android:text="@string/admin_access_subtitle"
             android:textColor="#777777"
             android:textSize="15sp" />
 
@@ -68,7 +68,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Iniciar sesión"
+                    android:text="@string/admin_login_title"
                     android:textColor="#202020"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -77,7 +77,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Ingresa tus credenciales administrativas"
+                    android:text="@string/admin_login_instructions"
                     android:textColor="#777777"
                     android:textSize="14sp" />
 
@@ -85,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="22dp"
-                    android:hint="Correo administrativo"
+                    android:hint="@string/admin_email_hint"
                     app:boxBackgroundColor="#FFFCF9"
                     app:boxBackgroundMode="outline"
                     app:boxCornerRadiusBottomEnd="14dp"
@@ -110,7 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:hint="Contraseña"
+                    android:hint="@string/admin_password_hint"
                     app:boxBackgroundColor="#FFFCF9"
                     app:boxBackgroundMode="outline"
                     app:boxCornerRadiusBottomEnd="14dp"
@@ -141,7 +141,7 @@
                     android:textColor="#D32F2F"
                     android:textSize="14sp"
                     android:visibility="gone"
-                    tools:text="Correo o contraseña incorrectos"
+                    tools:text="@string/admin_invalid_credentials_preview"
                     tools:visibility="visible" />
 
                 <com.google.android.material.button.MaterialButton
@@ -149,7 +149,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
                     android:layout_marginTop="18dp"
-                    android:text="Ingresar"
+                    android:text="@string/admin_login_button"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
@@ -176,7 +176,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="Acceso administrativo protegido"
+            android:text="@string/admin_protected_access"
             android:textColor="#999999"
             android:textSize="12sp" />
 

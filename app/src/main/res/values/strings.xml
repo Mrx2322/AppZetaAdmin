@@ -2,7 +2,7 @@
     <string name="app_name">AppZetaR</string>
 
     <!--TodoApp-->
-    <string name="todo_title">Bienvenido...</string>
+    <string name="todo_title">Bienvenido..</string>
     <string name="todo_categories">Popular Entradas :</string>
     <string name="todo_Menu">Menu :</string>
     <string name="Ingresar">VISTA ADMIN</string>
@@ -59,8 +59,120 @@
     <string name="agregar_extra">Agregar extra</string>
     <string name="h_name_extra">Nombre del extra</string>
 
+    <string name="admin_history_title">HISTORIAL</string>
+    <string name="admin_history_subtitle">Pedidos entregados</string>
+    <string name="admin_history_empty_message">📋\n\nNo hay pedidos entregados\n\nLos pedidos que sean entregados aparecerán aquí.</string>
 
+    <!--Login-->
+    <string name="admin_logo_content_description">Logo de ZETA</string>
+    <string name="admin_title">Administración ZETA</string>
+    <string name="admin_access_subtitle">Acceso exclusivo para el propietario</string>
+    <string name="admin_login_title">Iniciar sesión</string>
+    <string name="admin_login_instructions">Ingresa tus credenciales administrativas</string>
+    <string name="admin_email_hint">Correo administrativo</string>
+    <string name="admin_password_hint">Contraseña</string>
+    <string name="admin_invalid_credentials_preview">Correo o contraseña incorrectos</string>
+    <string name="admin_login_button">Ingresar</string>
+    <string name="admin_protected_access">Acceso administrativo protegido</string>
 
+    <!--adminMenu-->
+    <string name="admin_menu_title">Administración ZETA</string>
+    <string name="admin_menu_entries_section">ENTRADAS</string>
+    <string name="admin_menu_extras_section">EXTRAS</string>
+    <string name="admin_menu_dishes_section">MENÚ</string>
+    <string name="admin_menu_view_orders">Ver pedidos</string>
+    <string name="admin_menu_add_product">Agregar producto</string>
 
+    <!--ordenesAdmin-->
+    <string name="admin_orders_title">PEDIDOS</string>
+    <string name="admin_orders_subtitle">Pedidos recibidos en tiempo real</string>
+    <string name="admin_orders_view_history">📋  VER HISTORIAL</string>
+    <string name="admin_orders_empty_message">📦\n\nNo hay pedidos\n\nLos nuevos pedidos aparecerán aquí automáticamente.</string>
+
+    <string name="admin_add_entry_icon" translatable="false">🥗</string>
+    <string name="admin_add_entry_title">Nueva Entrada</string>
+    <string name="admin_add_entry_subtitle">Ingresa nombre y cantidad disponible</string>
+    <string name="admin_entry_name_hint">Nombre de la entrada</string>
+    <string name="admin_entry_stock_hint">Cantidad disponible</string>
+    <string name="admin_entry_available_title">Disponible</string>
+    <string name="admin_entry_available_description">Disponible para los clientes</string>
+    <string name="admin_entry_availability_switch_description">Cambiar disponibilidad de la entrada</string>
+
+    <!--AdminExtras-->
+    <string name="admin_add_extra_title">Agregar extra</string>
+    <string name="admin_extra_name_hint">Nombre del extra</string>
+    <string name="admin_extra_price_hint">Precio</string>
+    <string name="admin_extra_category_id_hint">ID de categoría</string>
+
+    <string name="admin_add_menu_icon" translatable="false">✏️</string>
+    <string name="admin_add_menu_title">Agregar Nuevo Menú</string>
+    <string name="admin_add_menu_subtitle">Ingresa el precio normal del menú con una entrada</string>
+    <string name="admin_menu_dish_name_hint">Nombre del plato</string>
+    <string name="admin_menu_price_hint">Precio con una entrada</string>
+    <string name="admin_menu_price_helper">Sin entrada, el cliente pagará S/ 1.00 menos</string>
+    <string name="admin_menu_stock_hint">Cantidad disponible</string>
+    <string name="currency_soles_prefix" translatable="false">S/\u0020</string>
+
+    <!--EditarEntradas-->
+    <string name="admin_edit_entry_icon" translatable="false">✏️</string>
+    <string name="admin_edit_entry_title">Editar Entrada</string>
+    <string name="admin_edit_entry_subtitle">Modifica nombre, cantidad y disponibilidad</string>
+    <string name="admin_edit_entry_availability_description">Indica si esta entrada está disponible</string>
+
+    <!--EditarExtras-->
+    <string name="admin_edit_extra_title">Editar extra</string>
+
+    <string name="admin_edit_menu_title">Editar Menú</string>
+    <string name="admin_edit_menu_subtitle">El precio registrado corresponde al menú con una entrada</string>
+
+    <string name="admin_order_dialog_icon" translatable="false">🛒</string>
+    <string name="admin_order_dialog_title">Tu pedido</string>
+    <string name="admin_order_products_preview">3 productos</string>
+    <string name="admin_order_dialog_total">Total</string>
+    <string name="admin_order_dialog_continue">Continuar pedido</string>
+    <string name="admin_order_dialog_keep_shopping">Seguir comprando</string>
+
+    <string name="admin_order_product_name_preview">Ceviche</string>
+    <string name="admin_order_product_quantity_preview">Cantidad</string>
+    <string name="admin_order_quantity_preview">1</string>
+    <string name="admin_order_decrease_quantity">Disminuir cantidad</string>
+    <string name="admin_order_increase_quantity">Aumentar cantidad</string>
+    <string name="admin_order_minus_symbol" translatable="false">−</string>
+    <string name="admin_order_plus_symbol" translatable="false">+</string>
+
+    <string name="admin_extra_name_preview">Nombre del extra</string>
+    <string name="admin_extra_price_preview">S/ 0.00</string>
+    <string name="admin_extra_edit_description">Editar extra</string>
+    <string name="admin_extra_delete_description">Eliminar extra</string>
+
+    <string name="admin_order_number_preview">📋 Pedido #0001</string>
+    <string name="admin_order_date_preview">📅 06/09/2026 • 10:35 a. m.</string>
+    <string name="admin_order_status_preview">ENTREGADO</string>
+    <string name="admin_order_customer_preview">👤 Cliente</string>
+    <string name="admin_order_phone_preview">📞 987654321</string>
+    <string name="admin_order_item_products_preview">🍽️ PRODUCTOS</string>
+    <string name="admin_order_delivery_type_preview">🚚 Delivery</string>
+    <string name="admin_order_address_preview">📍 Dirección</string>
+    <string name="admin_order_reference_preview">Referencia</string>
+    <string name="admin_order_payment_method_preview">💳 Contra entrega</string>
+    <string name="admin_order_total_preview">💰 S/ 35.00</string>
+    <string name="admin_order_progress_title">Avance del pedido</string>
+    <string name="admin_order_progress_description">Solo puedes seleccionar el siguiente estado</string>
+    <string name="admin_order_status_confirmed">Confirmado</string>
+    <string name="admin_order_status_preparing">En preparación</string>
+    <string name="admin_order_status_on_the_way">En camino</string>
+    <string name="admin_order_status_delivered">Entregado</string>
+
+    <string name="user_entry_icon" translatable="false">🍽</string>
+    <string name="user_entry_icon_description">Entrada</string>
+    <string name="user_entry_name_preview">Nombre de la entrada</string>
+    <string name="user_entry_stock_preview">Disponible</string>
+    <string name="user_entry_add">Agregar</string>
+
+    <string name="admin_menu_item_type">PLATO</string>
+    <string name="admin_menu_item_name_preview">Nombre del plato</string>
+    <string name="admin_menu_item_price_preview">S/ 10.00</string>
+    <string name="admin_menu_item_edit_description">Editar plato</string>
+    <string name="admin_menu_item_delete_description">Eliminar plato</string>
 
 </resources>

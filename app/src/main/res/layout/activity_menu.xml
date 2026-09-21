@@ -4,161 +4,100 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".AdminMenu.ActivityMenu">
-
-
-    <!-- ===================================================== -->
-    <!-- FONDO -->
-    <!-- ===================================================== -->
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:src="@drawable/fondo_menu"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
         android:scaleType="centerCrop"
-
-        android:contentDescription="@null" />
-
-
-    <!-- ===================================================== -->
-    <!-- CONTENIDO -->
-    <!-- ===================================================== -->
+        app:srcCompat="@drawable/fondo_menu" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:fillViewport="true"
-        android:clipToPadding="false">
+        android:clipToPadding="false"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="vertical"
-
             android:paddingBottom="120dp">
-
-
-            <!-- ================================================= -->
-            <!-- TÍTULO -->
-            <!-- ================================================= -->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="40dp"
-
                 android:fontFamily="monospace"
-
-                android:text="@string/todo_title"
-
+                android:text="@string/admin_menu_title"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
-
-            <!-- ================================================= -->
-            <!-- ENTRADAS -->
-            <!-- ================================================= -->
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="12dp"
-
                 android:fontFamily="sans-serif-smallcaps"
-
-                android:text="@string/todo_categories"
-
+                android:text="@string/admin_menu_entries_section"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvEntradas"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:clipToPadding="false"
                 android:nestedScrollingEnabled="false" />
-
-
-            <!-- ================================================= -->
-            <!-- EXTRAS -->
-            <!-- ================================================= -->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="15dp"
-
                 android:fontFamily="sans-serif-smallcaps"
-
-                android:text="EXTRAS"
-
+                android:text="@string/admin_menu_extras_section"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvExtras"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:clipToPadding="false"
                 android:nestedScrollingEnabled="false" />
-
-
-            <!-- ================================================= -->
-            <!-- MENÚ -->
-            <!-- ================================================= -->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="15dp"
-
                 android:fontFamily="sans-serif-smallcaps"
-
-                android:text="@string/todo_Menu"
-
+                android:text="@string/admin_menu_dishes_section"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvMenu"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:clipToPadding="false"
                 android:nestedScrollingEnabled="false" />
 
@@ -166,64 +105,33 @@
 
     </androidx.core.widget.NestedScrollView>
 
-
-    <!-- ===================================================== -->
-    <!-- PROGRESS BAR -->
-    <!-- ===================================================== -->
-
     <ProgressBar
         android:id="@+id/progressBarMenu"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_gravity="center"
-
         android:visibility="visible" />
-
-
-    <!-- ===================================================== -->
-    <!-- BOTÓN PEDIDOS -->
-    <!-- ===================================================== -->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabPedidos"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_gravity="bottom|start"
-
         android:layout_margin="24dp"
-
-        android:contentDescription="Ver pedidos"
-
-        android:src="@android:drawable/ic_menu_agenda"
-
+        android:contentDescription="@string/admin_menu_view_orders"
         app:backgroundTint="#4CAF50"
+        app:srcCompat="@android:drawable/ic_menu_agenda"
         app:tint="#FFFFFF" />
-
-
-    <!-- ===================================================== -->
-    <!-- BOTÓN AGREGAR -->
-    <!-- ===================================================== -->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAgregarMenu"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_gravity="bottom|end"
-
         android:layout_margin="24dp"
-
-        android:contentDescription="Agregar producto"
-
-        android:src="@android:drawable/ic_input_add"
-
+        android:contentDescription="@string/admin_menu_add_product"
         app:backgroundTint="#FF9800"
+        app:srcCompat="@android:drawable/ic_input_add"
         app:tint="#FFFFFF" />
-
 
 </FrameLayout>
