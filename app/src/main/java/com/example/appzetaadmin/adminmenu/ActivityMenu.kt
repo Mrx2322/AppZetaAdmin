@@ -1,4 +1,4 @@
-package com.example.appzetaadmin.AdminMenu
+package com.example.appzetaadmin.adminmenu
 
 import android.content.Intent
 import android.graphics.Color
@@ -22,11 +22,17 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appzetaadmin.AdminMenu.EntradasAdmin.EntradasAdapter
-import com.example.appzetaadmin.AdminMenu.EntradasAdmin.TaskEntradas
+import com.example.appzetaadmin.MainActivity
 import com.example.appzetaadmin.R
+import com.example.appzetaadmin.adminmenu.entradasadmin.EntradasAdapter
+import com.example.appzetaadmin.adminmenu.entradasadmin.TaskEntradas
+import com.example.appzetaadmin.adminmenu.extrasadmin.ExtraAdminAdapter
+import com.example.appzetaadmin.adminmenu.pedidosadmin.ActivityPedidosAdmin
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import java.util.Locale
@@ -97,6 +103,8 @@ class ActivityMenu : AppCompatActivity() {
     private lateinit var fabAgregarMenu: FloatingActionButton
 
     private lateinit var fabPedidos: FloatingActionButton
+
+    private lateinit var btnCerrarSesion: MaterialButton
 
 
     // =========================================================
@@ -185,7 +193,7 @@ class ActivityMenu : AppCompatActivity() {
 
 
     // =========================================================
-    // COMPONENTES
+    // COMPONENTE
     // =========================================================
 
     private fun initComponent() {
@@ -207,6 +215,9 @@ class ActivityMenu : AppCompatActivity() {
 
         fabPedidos =
             findViewById(R.id.fabPedidos)
+
+        btnCerrarSesion =
+            findViewById(R.id.btnCerrarSesion)
     }
 
 
@@ -312,7 +323,7 @@ class ActivityMenu : AppCompatActivity() {
 
 
         // =====================================================
-        // PEDIDOS
+        // PEDIDO
         // =====================================================
 
         fabPedidos.setOnClickListener {
@@ -325,25 +336,63 @@ class ActivityMenu : AppCompatActivity() {
 
             startActivity(intent)
         }
+
+        btnCerrarSesion.setOnClickListener {
+
+            cerrarSesion()
+        }
+    }
+
+    private fun cerrarSesion() {
+
+        val autenticacion = FirebaseAuth.getInstance()
+        autenticacion.signOut()
+
+        if (autenticacion.currentUser != null) {
+            Toast.makeText(
+                this,
+                R.string.admin_error_cerrar_sesion,
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        Toast.makeText(
+            this,
+            R.string.admin_sesion_cerrada,
+            Toast.LENGTH_SHORT
+        ).show()
+
+        val intent =
+            Intent(
+                this,
+                MainActivity::class.java
+            ).apply {
+
+                flags =
+                    Intent.FLAG_ACTIVITY_NEW_TASK or
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+
+        startActivity(intent)
+        finish()
     }
 
 
     // =========================================================
-    // SELECCIONAR QUÉ AGREGAR
+    // SELECT QUÉ AGREGAR
     // =========================================================
 
     private fun mostrarDialogoSeleccionarTipo() {
 
         val opciones =
-            arrayOf(
-                "Plato del menú",
-                "Entrada",
-                "Extra"
+            resources.getStringArray(
+                R.array.admin_tipos_elemento
             )
 
         AlertDialog.Builder(this)
             .setTitle(
-                "¿Qué deseas agregar?"
+                R.string.admin_titulo_seleccionar_tipo
             )
             .setItems(
                 opciones
@@ -362,7 +411,7 @@ class ActivityMenu : AppCompatActivity() {
                 }
             }
             .setNegativeButton(
-                "Cancelar",
+                R.string.admin_cancelar,
                 null
             )
             .show()
@@ -405,11 +454,11 @@ class ActivityMenu : AppCompatActivity() {
             AlertDialog.Builder(this)
                 .setView(dialogView)
                 .setPositiveButton(
-                    "Agregar",
+                    R.string.admin_agregar,
                     null
                 )
                 .setNegativeButton(
-                    "Cancelar",
+                    R.string.admin_cancelar,
                     null
                 )
                 .create()
@@ -445,10 +494,10 @@ class ActivityMenu : AppCompatActivity() {
                     .trim()
 
 
-            if (nombre.isEmpty()) {
+            if (nombre.isBlank()) {
 
                 etNombre.error =
-                    "Escribe un nombre válido"
+                    getString(R.string.admin_error_nombre_valido)
 
                 return@setOnClickListener
             }
@@ -466,7 +515,7 @@ class ActivityMenu : AppCompatActivity() {
             ) {
 
                 etPrecio.error =
-                    "Ingresa el precio con una entrada (mayor a S/ 1)"
+                    getString(R.string.admin_error_precio_menu)
 
                 return@setOnClickListener
             }
@@ -482,7 +531,7 @@ class ActivityMenu : AppCompatActivity() {
             ) {
 
                 etStock.error =
-                    "Ingresa una cantidad mayor a 0"
+                    getString(R.string.admin_error_stock_mayor_cero)
 
                 return@setOnClickListener
             }
@@ -514,7 +563,10 @@ class ActivityMenu : AppCompatActivity() {
 
                     Toast.makeText(
                         this,
-                        "Plato agregado. Stock: $stock",
+                        getString(
+                            R.string.admin_plato_agregado_stock,
+                            stock
+                        ),
                         Toast.LENGTH_SHORT
                     ).show()
 
@@ -530,7 +582,7 @@ class ActivityMenu : AppCompatActivity() {
 
                     Toast.makeText(
                         this,
-                        "Error al guardar el plato",
+                        getString(R.string.admin_error_guardar_plato),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -607,11 +659,11 @@ class ActivityMenu : AppCompatActivity() {
             AlertDialog.Builder(this)
                 .setView(dialogView)
                 .setPositiveButton(
-                    "Guardar",
+                    R.string.admin_guardar,
                     null
                 )
                 .setNegativeButton(
-                    "Cancelar",
+                    R.string.admin_cancelar,
                     null
                 )
                 .create()
@@ -649,10 +701,10 @@ class ActivityMenu : AppCompatActivity() {
                     .toIntOrNull()
 
 
-            if (nombre.isEmpty()) {
+            if (nombre.isBlank()) {
 
                 etNombre.error =
-                    "Escribe un nombre"
+                    getString(R.string.admin_error_nombre)
 
                 return@setOnClickListener
             }
@@ -664,7 +716,7 @@ class ActivityMenu : AppCompatActivity() {
             ) {
 
                 etPrecio.error =
-                    "Ingresa el precio con una entrada (mayor a S/ 1)"
+                    getString(R.string.admin_error_precio_menu)
 
                 return@setOnClickListener
             }
@@ -676,7 +728,7 @@ class ActivityMenu : AppCompatActivity() {
             ) {
 
                 etStock.error =
-                    "Cantidad inválida"
+                    getString(R.string.admin_error_cantidad_invalida)
 
                 return@setOnClickListener
             }
@@ -700,7 +752,7 @@ class ActivityMenu : AppCompatActivity() {
 
                     Toast.makeText(
                         this,
-                        "Plato actualizado",
+                        getString(R.string.admin_plato_actualizado),
                         Toast.LENGTH_SHORT
                     ).show()
 
@@ -716,7 +768,7 @@ class ActivityMenu : AppCompatActivity() {
 
                     Toast.makeText(
                         this,
-                        "No se pudo actualizar",
+                        getString(R.string.admin_error_actualizar),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -746,17 +798,20 @@ class ActivityMenu : AppCompatActivity() {
 
         AlertDialog.Builder(this)
             .setTitle(
-                "Eliminar plato"
+                R.string.admin_eliminar_plato
             )
             .setMessage(
-                "¿Eliminar \"${plato.name}\"?"
+                getString(
+                    R.string.admin_confirmar_eliminar,
+                    plato.name
+                )
             )
             .setNegativeButton(
-                "Cancelar",
+                R.string.admin_cancelar,
                 null
             )
             .setPositiveButton(
-                "Eliminar"
+                R.string.admin_eliminar
             ) { _, _ ->
 
                 db.collection("menu")
@@ -768,7 +823,7 @@ class ActivityMenu : AppCompatActivity() {
 
                         Toast.makeText(
                             this,
-                            "Plato eliminado",
+                            getString(R.string.admin_plato_eliminado),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -782,7 +837,7 @@ class ActivityMenu : AppCompatActivity() {
 
                         Toast.makeText(
                             this,
-                            "No se pudo eliminar",
+                            getString(R.string.admin_error_eliminar),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -829,7 +884,8 @@ class ActivityMenu : AppCompatActivity() {
                     }
 
 
-                    listaMenu.clear()
+                    val nuevosPlatos =
+                        mutableListOf<TaskMenu>()
 
 
                     for (documento in resultado) {
@@ -866,7 +922,7 @@ class ActivityMenu : AppCompatActivity() {
                             nombre.isNotEmpty()
                         ) {
 
-                            listaMenu.add(
+                            nuevosPlatos.add(
                                 TaskMenu(
                                     id = id,
                                     name = nombre,
@@ -878,7 +934,11 @@ class ActivityMenu : AppCompatActivity() {
                     }
 
 
-                    menuAdapter.notifyDataSetChanged()
+                    actualizarLista(
+                        destino = listaMenu,
+                        nuevosElementos = nuevosPlatos,
+                        adapter = menuAdapter
+                    )
 
 
                     progressBarMenu.visibility =
@@ -920,7 +980,7 @@ class ActivityMenu : AppCompatActivity() {
 
 
         val switchDisponible =
-            dialogView.findViewById<com.google.android.material.switchmaterial.SwitchMaterial>(
+            dialogView.findViewById<SwitchMaterial>(
                 R.id.switchDisponible
             )
 
@@ -933,11 +993,11 @@ class ActivityMenu : AppCompatActivity() {
             AlertDialog.Builder(this)
                 .setView(dialogView)
                 .setPositiveButton(
-                    "Agregar",
+                    R.string.admin_agregar,
                     null
                 )
                 .setNegativeButton(
-                    "Cancelar",
+                    R.string.admin_cancelar,
                     null
                 )
                 .create()
@@ -967,10 +1027,10 @@ class ActivityMenu : AppCompatActivity() {
                     .trim()
 
 
-            if (nombre.isEmpty()) {
+            if (nombre.isBlank()) {
 
                 etNombre.error =
-                    "Escribe un nombre válido"
+                    getString(R.string.admin_error_nombre_valido)
 
                 return@setOnClickListener
             }
@@ -986,7 +1046,7 @@ class ActivityMenu : AppCompatActivity() {
             ) {
 
                 etStock.error =
-                    "Ingresa una cantidad mayor a 0"
+                    getString(R.string.admin_error_stock_mayor_cero)
 
                 return@setOnClickListener
             }
@@ -1018,7 +1078,10 @@ class ActivityMenu : AppCompatActivity() {
 
                     Toast.makeText(
                         this,
-                        "Entrada agregada. Stock: $stock",
+                        getString(
+                            R.string.admin_entrada_agregada_stock,
+                            stock
+                        ),
                         Toast.LENGTH_SHORT
                     ).show()
 
@@ -1034,7 +1097,7 @@ class ActivityMenu : AppCompatActivity() {
 
                     Toast.makeText(
                         this,
-                        "Error al guardar entrada",
+                        getString(R.string.admin_error_guardar_entrada),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -1069,7 +1132,8 @@ class ActivityMenu : AppCompatActivity() {
                     }
 
 
-                    entradas.clear()
+                    val nuevasEntradas =
+                        mutableListOf<TaskEntradas>()
 
 
                     for (documento in resultado) {
@@ -1135,14 +1199,18 @@ class ActivityMenu : AppCompatActivity() {
                                 }
 
 
-                            entradas.add(
+                            nuevasEntradas.add(
                                 entrada
                             )
                         }
                     }
 
 
-                    entradasAdapter.notifyDataSetChanged()
+                    actualizarLista(
+                        destino = entradas,
+                        nuevosElementos = nuevasEntradas,
+                        adapter = entradasAdapter
+                    )
 
 
                     Log.d(
@@ -1194,7 +1262,7 @@ class ActivityMenu : AppCompatActivity() {
 
 
         val switchDisponible =
-            dialogView.findViewById<com.google.android.material.switchmaterial.SwitchMaterial>(
+            dialogView.findViewById<SwitchMaterial>(
                 R.id.switchDisponible
             )
 
@@ -1217,11 +1285,11 @@ class ActivityMenu : AppCompatActivity() {
             AlertDialog.Builder(this)
                 .setView(dialogView)
                 .setPositiveButton(
-                    "Guardar",
+                    R.string.admin_guardar,
                     null
                 )
                 .setNegativeButton(
-                    "Eliminar",
+                    R.string.admin_eliminar,
                     null
                 )
                 .create()
@@ -1252,10 +1320,10 @@ class ActivityMenu : AppCompatActivity() {
                     .toIntOrNull()
 
 
-            if (nombre.isEmpty()) {
+            if (nombre.isBlank()) {
 
                 etNombre.error =
-                    "Escribe un nombre válido"
+                    getString(R.string.admin_error_nombre_valido)
 
                 return@setOnClickListener
             }
@@ -1267,7 +1335,7 @@ class ActivityMenu : AppCompatActivity() {
             ) {
 
                 etStock.error =
-                    "Cantidad inválida"
+                    getString(R.string.admin_error_cantidad_invalida)
 
                 return@setOnClickListener
             }
@@ -1291,7 +1359,10 @@ class ActivityMenu : AppCompatActivity() {
 
                     Toast.makeText(
                         this,
-                        "Entrada actualizada. Stock: $stock",
+                        getString(
+                            R.string.admin_entrada_actualizada_stock,
+                            stock
+                        ),
                         Toast.LENGTH_SHORT
                     ).show()
 
@@ -1307,7 +1378,7 @@ class ActivityMenu : AppCompatActivity() {
 
                     Toast.makeText(
                         this,
-                        "No se pudo actualizar",
+                        getString(R.string.admin_error_actualizar),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -1320,17 +1391,20 @@ class ActivityMenu : AppCompatActivity() {
 
             AlertDialog.Builder(this)
                 .setTitle(
-                    "Eliminar entrada"
+                    R.string.admin_eliminar_entrada
                 )
                 .setMessage(
-                    "¿Eliminar \"${entrada.nombre}\"?"
+                    getString(
+                        R.string.admin_confirmar_eliminar,
+                        entrada.nombre
+                    )
                 )
                 .setNegativeButton(
-                    "Cancelar",
+                    R.string.admin_cancelar,
                     null
                 )
                 .setPositiveButton(
-                    "Eliminar"
+                    R.string.admin_eliminar
                 ) { _, _ ->
 
                     db.collection("entradas")
@@ -1342,7 +1416,7 @@ class ActivityMenu : AppCompatActivity() {
 
                             Toast.makeText(
                                 this,
-                                "Entrada eliminada",
+                                getString(R.string.admin_entrada_eliminada),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -1356,7 +1430,7 @@ class ActivityMenu : AppCompatActivity() {
 
                             Toast.makeText(
                                 this,
-                                "No se pudo eliminar",
+                                getString(R.string.admin_error_eliminar),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -1381,10 +1455,18 @@ class ActivityMenu : AppCompatActivity() {
             LinearLayout.VERTICAL
 
         layout.setPadding(
-            50,
-            20,
-            50,
-            10
+            resources.getDimensionPixelSize(
+                R.dimen.admin_dialog_padding_horizontal
+            ),
+            resources.getDimensionPixelSize(
+                R.dimen.admin_dialog_padding_top
+            ),
+            resources.getDimensionPixelSize(
+                R.dimen.admin_dialog_padding_horizontal
+            ),
+            resources.getDimensionPixelSize(
+                R.dimen.admin_dialog_padding_bottom
+            )
         )
 
 
@@ -1392,7 +1474,7 @@ class ActivityMenu : AppCompatActivity() {
             TextInputEditText(this)
 
         etNombre.hint =
-            "Nombre del extra"
+            getString(R.string.admin_nombre_extra)
 
         layout.addView(
             etNombre
@@ -1403,7 +1485,7 @@ class ActivityMenu : AppCompatActivity() {
             TextInputEditText(this)
 
         etPrecio.hint =
-            "Precio"
+            getString(R.string.admin_precio)
 
         etPrecio.inputType =
             InputType.TYPE_CLASS_NUMBER or
@@ -1419,10 +1501,8 @@ class ActivityMenu : AppCompatActivity() {
 
 
         val categorias =
-            arrayOf(
-                "Gaseosas",
-                "Tortas",
-                "Platos"
+            resources.getStringArray(
+                R.array.admin_categorias_extras
             )
 
 
@@ -1446,15 +1526,15 @@ class ActivityMenu : AppCompatActivity() {
         val dialog =
             AlertDialog.Builder(this)
                 .setTitle(
-                    "Agregar extra"
+                    R.string.admin_agregar_extra
                 )
                 .setView(layout)
                 .setPositiveButton(
-                    "Guardar",
+                    R.string.admin_guardar,
                     null
                 )
                 .setNegativeButton(
-                    "Cancelar",
+                    R.string.admin_cancelar,
                     null
                 )
                 .create()
@@ -1480,10 +1560,10 @@ class ActivityMenu : AppCompatActivity() {
                     .toDoubleOrNull()
 
 
-            if (nombre.isEmpty()) {
+            if (nombre.isBlank()) {
 
                 etNombre.error =
-                    "Escribe un nombre"
+                    getString(R.string.admin_error_nombre)
 
                 return@setOnClickListener
             }
@@ -1495,7 +1575,7 @@ class ActivityMenu : AppCompatActivity() {
             ) {
 
                 etPrecio.error =
-                    "Ingresa un precio válido"
+                    getString(R.string.admin_error_precio_valido)
 
                 return@setOnClickListener
             }
@@ -1538,7 +1618,7 @@ class ActivityMenu : AppCompatActivity() {
 
                     Toast.makeText(
                         this,
-                        "Extra agregado",
+                        getString(R.string.admin_extra_agregado),
                         Toast.LENGTH_SHORT
                     ).show()
 
@@ -1554,7 +1634,7 @@ class ActivityMenu : AppCompatActivity() {
 
                     Toast.makeText(
                         this,
-                        "No se pudo guardar el extra",
+                        getString(R.string.admin_error_guardar_extra),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -1614,7 +1694,8 @@ class ActivityMenu : AppCompatActivity() {
                     }
 
 
-                    listaExtras.clear()
+                    val nuevosExtras =
+                        mutableListOf<ExtraItem>()
 
 
                     for (documento in resultado) {
@@ -1657,7 +1738,7 @@ class ActivityMenu : AppCompatActivity() {
                             nombre.isNotEmpty()
                         ) {
 
-                            listaExtras.add(
+                            nuevosExtras.add(
                                 ExtraItem(
                                     id = id,
                                     nombre = nombre,
@@ -1670,8 +1751,11 @@ class ActivityMenu : AppCompatActivity() {
                     }
 
 
-                    extraAdminAdapter
-                        .notifyDataSetChanged()
+                    actualizarLista(
+                        destino = listaExtras,
+                        nuevosElementos = nuevosExtras,
+                        adapter = extraAdminAdapter
+                    )
 
 
                     Log.d(
@@ -1709,10 +1793,18 @@ class ActivityMenu : AppCompatActivity() {
             LinearLayout.VERTICAL
 
         layout.setPadding(
-            50,
-            20,
-            50,
-            10
+            resources.getDimensionPixelSize(
+                R.dimen.admin_dialog_padding_horizontal
+            ),
+            resources.getDimensionPixelSize(
+                R.dimen.admin_dialog_padding_top
+            ),
+            resources.getDimensionPixelSize(
+                R.dimen.admin_dialog_padding_horizontal
+            ),
+            resources.getDimensionPixelSize(
+                R.dimen.admin_dialog_padding_bottom
+            )
         )
 
 
@@ -1720,7 +1812,7 @@ class ActivityMenu : AppCompatActivity() {
             TextInputEditText(this)
 
         etNombre.hint =
-            "Nombre del extra"
+            getString(R.string.admin_nombre_extra)
 
         etNombre.setText(
             extra.nombre
@@ -1735,7 +1827,7 @@ class ActivityMenu : AppCompatActivity() {
             TextInputEditText(this)
 
         etPrecio.hint =
-            "Precio"
+            getString(R.string.admin_precio)
 
         etPrecio.inputType =
             InputType.TYPE_CLASS_NUMBER or
@@ -1759,10 +1851,8 @@ class ActivityMenu : AppCompatActivity() {
 
 
         val categorias =
-            arrayOf(
-                "Gaseosas",
-                "Tortas",
-                "Platos"
+            resources.getStringArray(
+                R.array.admin_categorias_extras
             )
 
 
@@ -1801,15 +1891,15 @@ class ActivityMenu : AppCompatActivity() {
         val dialog =
             AlertDialog.Builder(this)
                 .setTitle(
-                    "Editar extra"
+                    R.string.admin_editar_extra
                 )
                 .setView(layout)
                 .setPositiveButton(
-                    "Guardar",
+                    R.string.admin_guardar,
                     null
                 )
                 .setNegativeButton(
-                    "Cancelar",
+                    R.string.admin_cancelar,
                     null
                 )
                 .create()
@@ -1835,10 +1925,10 @@ class ActivityMenu : AppCompatActivity() {
                     .toDoubleOrNull()
 
 
-            if (nombre.isEmpty()) {
+            if (nombre.isBlank()) {
 
                 etNombre.error =
-                    "Escribe un nombre"
+                    getString(R.string.admin_error_nombre)
 
                 return@setOnClickListener
             }
@@ -1850,7 +1940,7 @@ class ActivityMenu : AppCompatActivity() {
             ) {
 
                 etPrecio.error =
-                    "Ingresa un precio válido"
+                    getString(R.string.admin_error_precio_valido)
 
                 return@setOnClickListener
             }
@@ -1885,7 +1975,7 @@ class ActivityMenu : AppCompatActivity() {
 
                     Toast.makeText(
                         this,
-                        "Extra actualizado",
+                        getString(R.string.admin_extra_actualizado),
                         Toast.LENGTH_SHORT
                     ).show()
 
@@ -1901,7 +1991,7 @@ class ActivityMenu : AppCompatActivity() {
 
                     Toast.makeText(
                         this,
-                        "No se pudo actualizar",
+                        getString(R.string.admin_error_actualizar),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -1931,17 +2021,20 @@ class ActivityMenu : AppCompatActivity() {
 
         AlertDialog.Builder(this)
             .setTitle(
-                "Eliminar extra"
+                R.string.admin_eliminar_extra
             )
             .setMessage(
-                "¿Deseas eliminar \"${extra.nombre}\"?"
+                getString(
+                    R.string.admin_confirmar_eliminar,
+                    extra.nombre
+                )
             )
             .setNegativeButton(
-                "Cancelar",
+                R.string.admin_cancelar,
                 null
             )
             .setPositiveButton(
-                "Eliminar"
+                R.string.admin_eliminar
             ) { _, _ ->
 
                 db.collection("extras")
@@ -1953,7 +2046,7 @@ class ActivityMenu : AppCompatActivity() {
 
                         Toast.makeText(
                             this,
-                            "Extra eliminado",
+                            getString(R.string.admin_extra_eliminado),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -1967,11 +2060,43 @@ class ActivityMenu : AppCompatActivity() {
 
                         Toast.makeText(
                             this,
-                            "No se pudo eliminar",
+                            getString(R.string.admin_error_eliminar),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
             }
             .show()
+    }
+
+    private fun <T> actualizarLista(
+        destino: MutableList<T>,
+        nuevosElementos: List<T>,
+        adapter: RecyclerView.Adapter<*>
+    ) {
+
+        val cantidadAnterior =
+            destino.size
+
+        if (cantidadAnterior > 0) {
+
+            destino.clear()
+
+            adapter.notifyItemRangeRemoved(
+                0,
+                cantidadAnterior
+            )
+        }
+
+        if (nuevosElementos.isNotEmpty()) {
+
+            destino.addAll(
+                nuevosElementos
+            )
+
+            adapter.notifyItemRangeInserted(
+                0,
+                nuevosElementos.size
+            )
+        }
     }
 }

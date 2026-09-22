@@ -175,4 +175,64 @@
     <string name="admin_menu_item_edit_description">Editar plato</string>
     <string name="admin_menu_item_delete_description">Eliminar plato</string>
 
+    <string name="admin_titulo_seleccionar_tipo">¿Qué deseas agregar?</string>
+    <string name="admin_agregar">Agregar</string>
+    <string name="admin_guardar">Guardar</string>
+    <string name="admin_cancelar">Cancelar</string>
+    <string name="admin_eliminar">Eliminar</string>
+
+    <string name="admin_error_nombre">Escribe un nombre</string>
+    <string name="admin_error_nombre_valido">Escribe un nombre válido</string>
+    <string name="admin_error_precio_menu">Ingresa el precio con una entrada (mayor a S/ 1)</string>
+    <string name="admin_error_precio_valido">Ingresa un precio válido</string>
+    <string name="admin_error_stock_mayor_cero">Ingresa una cantidad mayor a 0</string>
+    <string name="admin_error_cantidad_invalida">Cantidad inválida</string>
+    <string name="admin_error_actualizar">No se pudo actualizar</string>
+    <string name="admin_error_eliminar">No se pudo eliminar</string>
+
+    <string name="admin_plato_agregado_stock">Plato agregado. Stock: %1$d</string>
+    <string name="admin_error_guardar_plato">Error al guardar el plato</string>
+    <string name="admin_plato_actualizado">Plato actualizado</string>
+    <string name="admin_eliminar_plato">Eliminar plato</string>
+    <string name="admin_plato_eliminado">Plato eliminado</string>
+
+    <string name="admin_entrada_agregada_stock">Entrada agregada. Stock: %1$d</string>
+    <string name="admin_error_guardar_entrada">Error al guardar entrada</string>
+    <string name="admin_entrada_actualizada_stock">Entrada actualizada. Stock: %1$d</string>
+    <string name="admin_eliminar_entrada">Eliminar entrada</string>
+    <string name="admin_entrada_eliminada">Entrada eliminada</string>
+
+    <string name="admin_nombre_extra">Nombre del extra</string>
+    <string name="admin_precio">Precio</string>
+    <string name="admin_agregar_extra">Agregar extra</string>
+    <string name="admin_editar_extra">Editar extra</string>
+    <string name="admin_eliminar_extra">Eliminar extra</string>
+    <string name="admin_extra_agregado">Extra agregado</string>
+    <string name="admin_extra_actualizado">Extra actualizado</string>
+    <string name="admin_extra_eliminado">Extra eliminado</string>
+    <string name="admin_error_guardar_extra">No se pudo guardar el extra</string>
+
+    <string name="admin_confirmar_eliminar">¿Eliminar «%1$s»?</string>
+
+    <string-array name="admin_tipos_elemento">
+        <item>Plato del menú</item>
+        <item>Entrada</item>
+        <item>Extra</item>
+    </string-array>
+
+    <string-array name="admin_categorias_extras">
+        <item>Gaseosas</item>
+        <item>Tortas</item>
+        <item>Platos</item>
+    </string-array>
+
+    <dimen name="admin_dialog_padding_horizontal">20dp</dimen>
+    <dimen name="admin_dialog_padding_top">8dp</dimen>
+    <dimen name="admin_dialog_padding_bottom">4dp</dimen>
+
+    <string name="admin_cerrar_sesion">Cerrar sesión</string>
+
+    <string name="admin_sesion_cerrada">Sesión cerrada correctamente</string>
+    <string name="admin_error_cerrar_sesion">No se pudo cerrar la sesión</string>
+
 </resources>

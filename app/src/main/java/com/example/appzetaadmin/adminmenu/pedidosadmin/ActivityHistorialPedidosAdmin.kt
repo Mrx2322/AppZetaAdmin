@@ -1,4 +1,4 @@
-package com.example.appzetaadmin.AdminMenu
+package com.example.appzetaadmin.adminmenu.pedidosadmin
 
 import android.os.Bundle
 import android.util.Log
@@ -133,7 +133,8 @@ class ActivityHistorialPedidosAdmin : AppCompatActivity() {
                         return@addSnapshotListener
                     }
 
-                    listaHistorial.clear()
+                    val nuevoHistorial =
+                        mutableListOf<PedidoAdmin>()
 
                     for (documento in resultado.documents) {
 
@@ -227,20 +228,21 @@ class ActivityHistorialPedidosAdmin : AppCompatActivity() {
                                     estadoPedido,
 
                                 productos =
-                                    documento.get(
-                                        "productos"
-                                    ) as? List<Map<String, Any>>
-                                        ?: emptyList()
+                                    convertirProductos(
+                                        documento.get(
+                                            "productos"
+                                        )
+                                    )
                             )
 
-                        listaHistorial.add(
+                        nuevoHistorial.add(
                             pedido
                         )
                     }
 
                     // Ordenar por fecha real.
                     // Los pedidos más recientes aparecen primero.
-                    listaHistorial.sortByDescending { pedido ->
+                    nuevoHistorial.sortByDescending { pedido ->
 
                         pedido.fecha
                             ?.toDate()
@@ -248,7 +250,30 @@ class ActivityHistorialPedidosAdmin : AppCompatActivity() {
                             ?: 0L
                     }
 
-                    adapter.notifyDataSetChanged()
+                    val cantidadAnterior =
+                        listaHistorial.size
+
+                    if (cantidadAnterior > 0) {
+
+                        listaHistorial.clear()
+
+                        adapter.notifyItemRangeRemoved(
+                            0,
+                            cantidadAnterior
+                        )
+                    }
+
+                    if (nuevoHistorial.isNotEmpty()) {
+
+                        listaHistorial.addAll(
+                            nuevoHistorial
+                        )
+
+                        adapter.notifyItemRangeInserted(
+                            0,
+                            nuevoHistorial.size
+                        )
+                    }
 
                     actualizarEstadoVacio()
 
@@ -258,6 +283,35 @@ class ActivityHistorialPedidosAdmin : AppCompatActivity() {
                                 listaHistorial.size
                     )
                 }
+    }
+
+    private fun convertirProductos(
+        valor: Any?
+    ): List<Map<String, Any>> {
+
+        val productos =
+            valor as? List<*>
+                ?: return emptyList()
+
+        return productos.mapNotNull { producto ->
+
+            val mapa =
+                producto as? Map<*, *>
+                    ?: return@mapNotNull null
+
+            mapa.entries.mapNotNull { entrada ->
+
+                val clave =
+                    entrada.key as? String
+                        ?: return@mapNotNull null
+
+                val contenido =
+                    entrada.value
+                        ?: return@mapNotNull null
+
+                clave to contenido
+            }.toMap()
+        }
     }
 
     private fun actualizarEstadoVacio() {

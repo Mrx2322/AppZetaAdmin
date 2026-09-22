@@ -1,12 +1,12 @@
-package com.example.appzetaadmin.AdminMenu
+package com.example.appzetaadmin.adminmenu.extrasadmin
 
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appzetaadmin.R
-import com.example.appzetaadmin.AdminMenu.ExtraItem
 import java.util.Locale
+import com.example.appzetaadmin.adminmenu.ExtraItem
 
 class ExtraAdminViewHolder(
     view: View

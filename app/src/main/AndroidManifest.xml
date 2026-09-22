@@ -16,16 +16,16 @@
         android:usesCleartextTraffic="false">
 
         <activity
-            android:name=".AdminMenu.ActivityHistorialPedidosAdmin"
+            android:name=".adminmenu.pedidosadmin.ActivityHistorialPedidosAdmin"
             android:exported="false" />
 
         <activity
-            android:name=".AdminMenu.ActivityPedidosAdmin"
+            android:name=".adminmenu.pedidosadmin.ActivityPedidosAdmin"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".AdminMenu.ActivityMenu"
+            android:name=".adminmenu.ActivityMenu"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 

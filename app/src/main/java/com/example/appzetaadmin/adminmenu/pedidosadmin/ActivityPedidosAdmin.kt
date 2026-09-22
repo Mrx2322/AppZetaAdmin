@@ -1,4 +1,4 @@
-package com.example.appzetaadmin.AdminMenu
+package com.example.appzetaadmin.adminmenu.pedidosadmin
 
 import android.content.Intent
 import android.os.Bundle
@@ -198,7 +198,8 @@ class ActivityPedidosAdmin : AppCompatActivity() {
                         return@addSnapshotListener
                     }
 
-                    listaPedidos.clear()
+                    val nuevosPedidos =
+                        mutableListOf<PedidoAdmin>()
 
                     for (documento in resultado.documents) {
 
@@ -292,17 +293,19 @@ class ActivityPedidosAdmin : AppCompatActivity() {
                                     estadoPedido,
 
                                 productos =
-                                    documento.get("productos")
-                                            as? List<Map<String, Any>>
-                                        ?: emptyList()
+                                    convertirProductos(
+                                        documento.get(
+                                            "productos"
+                                        )
+                                    )
                             )
 
-                        listaPedidos.add(
+                        nuevosPedidos.add(
                             pedido
                         )
                     }
 
-                    listaPedidos.sortByDescending { pedido ->
+                    nuevosPedidos.sortByDescending { pedido ->
 
                         pedido.fecha
                             ?.toDate()
@@ -310,10 +313,62 @@ class ActivityPedidosAdmin : AppCompatActivity() {
                             ?: 0L
                     }
 
-                    adapter.notifyDataSetChanged()
+                    val cantidadAnterior =
+                        listaPedidos.size
+
+                    if (cantidadAnterior > 0) {
+
+                        listaPedidos.clear()
+
+                        adapter.notifyItemRangeRemoved(
+                            0,
+                            cantidadAnterior
+                        )
+                    }
+
+                    if (nuevosPedidos.isNotEmpty()) {
+
+                        listaPedidos.addAll(
+                            nuevosPedidos
+                        )
+
+                        adapter.notifyItemRangeInserted(
+                            0,
+                            nuevosPedidos.size
+                        )
+                    }
 
                     actualizarEstadoVacio()
                 }
+    }
+
+    private fun convertirProductos(
+        valor: Any?
+    ): List<Map<String, Any>> {
+
+        val productos =
+            valor as? List<*>
+                ?: return emptyList()
+
+        return productos.mapNotNull { producto ->
+
+            val mapa =
+                producto as? Map<*, *>
+                    ?: return@mapNotNull null
+
+            mapa.entries.mapNotNull { entrada ->
+
+                val clave =
+                    entrada.key as? String
+                        ?: return@mapNotNull null
+
+                val contenido =
+                    entrada.value
+                        ?: return@mapNotNull null
+
+                clave to contenido
+            }.toMap()
+        }
     }
 
     // =========================================================
@@ -371,13 +426,9 @@ class ActivityPedidosAdmin : AppCompatActivity() {
             }
 
             val actualizaciones =
-                hashMapOf<String, Any>(
-
-                    "estadoPedido" to
-                            nuevoEstado,
-
-                    "fechaActualizacion" to
-                            FieldValue.serverTimestamp()
+                hashMapOf(
+                    "estadoPedido" to nuevoEstado,
+                    "fechaActualizacion" to FieldValue.serverTimestamp()
                 )
 
             /*
@@ -486,7 +537,7 @@ class ActivityPedidosAdmin : AppCompatActivity() {
 
         return when (
             estado.trim().lowercase(
-                Locale.getDefault()
+                Locale.ROOT
             )
         ) {
 

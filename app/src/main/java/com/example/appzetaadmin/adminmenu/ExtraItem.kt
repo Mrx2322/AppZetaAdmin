@@ -1,4 +1,4 @@
-package com.example.appzetaadmin.AdminMenu
+package com.example.appzetaadmin.adminmenu
 
 data class ExtraItem(
     val id: Int,

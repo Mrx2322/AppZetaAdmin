@@ -1,10 +1,10 @@
-package com.example.appzetaadmin.AdminMenu
+package com.example.appzetaadmin.adminmenu.extrasadmin
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appzetaadmin.R
-import com.example.appzetaadmin.AdminMenu.ExtraItem
+import com.example.appzetaadmin.adminmenu.ExtraItem
 
 class ExtraAdminAdapter(
     private val listaExtras: MutableList<ExtraItem>,

@@ -1,4 +1,4 @@
-package com.example.appzetaadmin.AdminMenu
+package com.example.appzetaadmin.adminmenu.pedidosadmin
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

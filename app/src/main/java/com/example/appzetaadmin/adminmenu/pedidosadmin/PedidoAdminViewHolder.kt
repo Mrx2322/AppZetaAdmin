@@ -1,9 +1,9 @@
-package com.example.appzetaadmin.AdminMenu
+package com.example.appzetaadmin.adminmenu.pedidosadmin
 
-import android.graphics.Color
 import android.graphics.Typeface
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appzetaadmin.R
 import com.google.android.material.button.MaterialButton
@@ -13,6 +13,9 @@ import java.util.Locale
 class PedidoAdminViewHolder(
     itemView: View
 ) : RecyclerView.ViewHolder(itemView) {
+
+    private val context =
+        itemView.context
 
     // =========================================================
     // INFORMACIÓN DEL PEDIDO
@@ -75,22 +78,40 @@ class PedidoAdminViewHolder(
     // =========================================================
 
     private val colorNaranja =
-        Color.parseColor("#E87520")
+        ContextCompat.getColor(
+            context,
+            R.color.pedido_estado_naranja
+        )
 
     private val colorNaranjaClaro =
-        Color.parseColor("#FFF3E0")
+        ContextCompat.getColor(
+            context,
+            R.color.pedido_estado_naranja_claro
+        )
 
     private val colorVerde =
-        Color.parseColor("#2E7D32")
+        ContextCompat.getColor(
+            context,
+            R.color.pedido_estado_verde
+        )
 
     private val colorVerdeClaro =
-        Color.parseColor("#E8F5E9")
+        ContextCompat.getColor(
+            context,
+            R.color.pedido_estado_verde_claro
+        )
 
     private val colorRojo =
-        Color.parseColor("#C62828")
+        ContextCompat.getColor(
+            context,
+            R.color.pedido_estado_rojo
+        )
 
     private val colorRojoClaro =
-        Color.parseColor("#FFEBEE")
+        ContextCompat.getColor(
+            context,
+            R.color.pedido_estado_rojo_claro
+        )
 
     // =========================================================
     // MOSTRAR PEDIDO
@@ -138,17 +159,16 @@ class PedidoAdminViewHolder(
         tvNumeroPedido.text =
             if (pedido.numeroPedido > 0L) {
 
-                "📋 Pedido #${
-                    String.format(
-                        Locale.US,
-                        "%04d",
-                        pedido.numeroPedido
-                    )
-                }"
+                context.getString(
+                    R.string.pedido_admin_numero,
+                    pedido.numeroPedido
+                )
 
             } else {
 
-                "📋 Pedido sin número"
+                context.getString(
+                    R.string.pedido_admin_sin_numero
+                )
             }
     }
 
@@ -169,14 +189,19 @@ class PedidoAdminViewHolder(
                 val formato =
                     SimpleDateFormat(
                         "dd/MM/yyyy • hh:mm a",
-                        Locale("es", "PE")
+                        Locale.forLanguageTag("es-PE")
                     )
 
-                "📅 ${formato.format(fecha.toDate())}"
+                context.getString(
+                    R.string.pedido_admin_fecha,
+                    formato.format(fecha.toDate())
+                )
 
             } else {
 
-                "📅 Fecha no disponible"
+                context.getString(
+                    R.string.pedido_admin_fecha_no_disponible
+                )
             }
     }
 
@@ -189,13 +214,21 @@ class PedidoAdminViewHolder(
     ) {
 
         tvNombreUsuario.text =
-            "👤 ${pedido.nombreUsuario}"
+            context.getString(
+                R.string.pedido_admin_cliente,
+                pedido.nombreUsuario
+            )
 
         tvTelefono.text =
             if (pedido.telefono.isNotBlank()) {
-                "📞 ${pedido.telefono}"
+                context.getString(
+                    R.string.pedido_admin_telefono,
+                    pedido.telefono
+                )
             } else {
-                "📞 Sin teléfono"
+                context.getString(
+                    R.string.pedido_admin_sin_telefono
+                )
             }
     }
 
@@ -209,34 +242,52 @@ class PedidoAdminViewHolder(
 
         tvTipoEntrega.text =
             if (pedido.esDelivery()) {
-                "🚚 Delivery"
+                context.getString(
+                    R.string.pedido_admin_delivery
+                )
             } else {
-                "🏪 Recojo en tienda"
+                context.getString(
+                    R.string.pedido_admin_recojo_tienda
+                )
             }
 
         if (pedido.esDelivery()) {
 
             tvDireccion.text =
                 if (pedido.direccion.isNotBlank()) {
-                    "📍 ${pedido.direccion}"
+                    context.getString(
+                        R.string.pedido_admin_direccion,
+                        pedido.direccion
+                    )
                 } else {
-                    "📍 Sin dirección"
+                    context.getString(
+                        R.string.pedido_admin_sin_direccion
+                    )
                 }
 
             tvReferencia.text =
                 if (pedido.referencia.isNotBlank()) {
-                    "Referencia: ${pedido.referencia}"
+                    context.getString(
+                        R.string.pedido_admin_referencia,
+                        pedido.referencia
+                    )
                 } else {
-                    "Sin referencia"
+                    context.getString(
+                        R.string.pedido_admin_sin_referencia
+                    )
                 }
 
         } else {
 
             tvDireccion.text =
-                "📍 Recojo en tienda"
+                context.getString(
+                    R.string.pedido_admin_ubicacion_recojo
+                )
 
             tvReferencia.text =
-                "No aplica"
+                context.getString(
+                    R.string.pedido_admin_no_aplica
+                )
         }
     }
 
@@ -249,11 +300,15 @@ class PedidoAdminViewHolder(
     ) {
 
         tvMetodoPago.text =
-            "💳 ${pedido.metodoPago} · ${pedido.estadoPago}"
+            context.getString(
+                R.string.pedido_admin_pago,
+                pedido.metodoPago,
+                pedido.estadoPago
+            )
 
         tvTotal.text =
-            "💰 S/ %.2f".format(
-                Locale.US,
+            context.getString(
+                R.string.pedido_admin_total,
                 pedido.total
             )
     }
@@ -273,7 +328,7 @@ class PedidoAdminViewHolder(
 
         tvEstadoPedido.text =
             estado.uppercase(
-                Locale.getDefault()
+                Locale.ROOT
             )
 
         when (estado) {
@@ -335,16 +390,22 @@ class PedidoAdminViewHolder(
             }
 
         btnConfirmado.text =
-            "Confirmado"
+            context.getString(
+                R.string.pedido_admin_confirmado
+            )
 
         btnPreparando.text =
-            "En preparación"
+            context.getString(
+                R.string.pedido_admin_en_preparacion
+            )
 
         btnEnCamino.text =
             estadoDespacho
 
         btnEntregado.text =
-            "Entregado"
+            context.getString(
+                R.string.pedido_admin_entregado
+            )
 
         /*
          * Primero se desactivan todos.
@@ -540,7 +601,10 @@ class PedidoAdminViewHolder(
             0.75f
 
         button.text =
-            "✓ ${button.text}"
+            context.getString(
+                R.string.pedido_admin_completado,
+                button.text
+            )
 
         button.setTypeface(
             null,
@@ -559,14 +623,18 @@ class PedidoAdminViewHolder(
         if (productos.isEmpty()) {
 
             tvProductos.text =
-                "🍽️ Sin productos"
+                context.getString(
+                    R.string.pedido_admin_sin_productos
+                )
 
             return
         }
 
         val texto =
             StringBuilder(
-                "🍽️ PRODUCTOS\n"
+                context.getString(
+                    R.string.pedido_admin_productos_titulo
+                )
             )
 
         productos.forEach { producto ->
@@ -574,7 +642,9 @@ class PedidoAdminViewHolder(
             val nombre =
                 producto["nombre"]
                     ?.toString()
-                    ?: "Producto"
+                    ?: context.getString(
+                        R.string.pedido_admin_producto
+                    )
 
             val cantidad =
                 (producto["cantidad"] as? Number)
@@ -587,11 +657,12 @@ class PedidoAdminViewHolder(
                     ?: 0.0
 
             texto.append(
-                "• $cantidad × $nombre — S/ %.2f\n"
-                    .format(
-                        Locale.US,
-                        precio * cantidad
-                    )
+                context.getString(
+                    R.string.pedido_admin_producto_detalle,
+                    cantidad,
+                    nombre,
+                    precio * cantidad
+                )
             )
         }
 
@@ -610,7 +681,7 @@ class PedidoAdminViewHolder(
 
         return when (
             estado.trim().lowercase(
-                Locale.getDefault()
+                Locale.ROOT
             )
         ) {
 

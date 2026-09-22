@@ -1,4 +1,4 @@
-package com.example.appzetaadmin.AdminMenu
+package com.example.appzetaadmin.adminmenu.pedidosadmin
 
 import com.google.firebase.Timestamp
 

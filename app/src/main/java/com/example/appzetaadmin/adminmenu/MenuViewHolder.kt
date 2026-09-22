@@ -1,4 +1,4 @@
-package com.example.appzetaadmin.AdminMenu
+package com.example.appzetaadmin.adminmenu
 
 import android.annotation.SuppressLint
 import android.view.View

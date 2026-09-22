@@ -7,7 +7,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminMenu.ActivityMenu">
+    tools:context=".adminmenu.ActivityMenu">
 
     <ImageView
         android:layout_width="match_parent"
@@ -29,18 +29,50 @@
             android:orientation="vertical"
             android:paddingBottom="120dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="24dp"
                 android:layout_marginBottom="40dp"
-                android:fontFamily="monospace"
-                android:text="@string/admin_menu_title"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="monospace"
+                    android:text="@string/admin_menu_title"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCerrarSesion"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="12dp"
+                    android:contentDescription="@string/admin_cerrar_sesion"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:padding="12dp"
+                    android:text=""
+                    app:backgroundTint="#663F435D"
+                    app:cornerRadius="14dp"
+                    app:icon="@android:drawable/ic_lock_power_off"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconTint="@android:color/white"
+                    app:strokeColor="#B3FFFFFF"
+                    app:strokeWidth="1dp" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"

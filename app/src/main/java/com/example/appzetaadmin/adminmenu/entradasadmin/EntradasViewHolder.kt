@@ -1,4 +1,4 @@
-package com.example.appzetaadmin.AdminMenu.EntradasAdmin
+package com.example.appzetaadmin.adminmenu.entradasadmin
 
 import android.view.View
 import android.widget.TextView
