@@ -4,15 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardEntrada"
     android:layout_width="250dp"
-    android:layout_height="112dp"
+    android:layout_height="118dp"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
     android:layout_marginBottom="8dp"
-    app:cardBackgroundColor="#FFFFFF"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="#D913474D"
     app:cardCornerRadius="20dp"
-    app:cardElevation="2dp"
+    app:cardElevation="0dp"
     app:cardUseCompatPadding="false"
-    app:strokeColor="#EEEEEE"
+    app:strokeColor="#6689B8BC"
     app:strokeWidth="1dp">
 
     <LinearLayout
@@ -46,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:textColor="#202020"
+                android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:text="@string/user_entry_name_preview" />
@@ -58,7 +61,7 @@
                 android:layout_marginTop="5dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="#757575"
+                android:textColor="#C7D5D7"
                 android:textSize="12sp"
                 tools:text="@string/user_entry_stock_preview" />
 
@@ -80,6 +83,7 @@
             android:textStyle="bold"
             app:backgroundTint="#E87520"
             app:cornerRadius="14dp"
+            android:visibility="gone"
             app:elevation="0dp" />
 
     </LinearLayout>

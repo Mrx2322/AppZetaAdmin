@@ -176,6 +176,10 @@
     <string name="admin_menu_item_delete_description">Eliminar plato</string>
 
     <string name="admin_titulo_seleccionar_tipo">¿Qué deseas agregar?</string>
+    <string name="admin_seleccionar_tipo_ayuda">Selecciona el tipo de elemento que deseas crear</string>
+    <string name="admin_tipo_plato">Plato del menú</string>
+    <string name="admin_tipo_entrada">Entrada</string>
+    <string name="admin_tipo_extra">Extra</string>
     <string name="admin_agregar">Agregar</string>
     <string name="admin_guardar">Guardar</string>
     <string name="admin_cancelar">Cancelar</string>
@@ -231,7 +235,6 @@
     <dimen name="admin_dialog_padding_bottom">4dp</dimen>
 
     <string name="admin_cerrar_sesion">Cerrar sesión</string>
-
     <string name="admin_sesion_cerrada">Sesión cerrada correctamente</string>
     <string name="admin_error_cerrar_sesion">No se pudo cerrar la sesión</string>
 

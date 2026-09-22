@@ -385,36 +385,51 @@ class ActivityMenu : AppCompatActivity() {
 
     private fun mostrarDialogoSeleccionarTipo() {
 
-        val opciones =
-            resources.getStringArray(
-                R.array.admin_tipos_elemento
-            )
-
-        AlertDialog.Builder(this)
-            .setTitle(
-                R.string.admin_titulo_seleccionar_tipo
-            )
-            .setItems(
-                opciones
-            ) { _, cual ->
-
-                when (cual) {
-
-                    0 ->
-                        mostrarDialogoAgregarMenu()
-
-                    1 ->
-                        mostrarDialogoAgregarEntrada()
-
-                    2 ->
-                        mostrarDialogoAgregarExtra()
-                }
-            }
-            .setNegativeButton(
-                R.string.admin_cancelar,
+        val vista =
+            layoutInflater.inflate(
+                R.layout.dialog_seleccionar_tipo,
                 null
             )
-            .show()
+
+        val dialogo =
+            AlertDialog.Builder(this)
+                .setView(vista)
+                .create()
+
+        vista.findViewById<MaterialButton>(
+            R.id.btnTipoPlato
+        ).setOnClickListener {
+            dialogo.dismiss()
+            mostrarDialogoAgregarMenu()
+        }
+
+        vista.findViewById<MaterialButton>(
+            R.id.btnTipoEntrada
+        ).setOnClickListener {
+            dialogo.dismiss()
+            mostrarDialogoAgregarEntrada()
+        }
+
+        vista.findViewById<MaterialButton>(
+            R.id.btnTipoExtra
+        ).setOnClickListener {
+            dialogo.dismiss()
+            mostrarDialogoAgregarExtra()
+        }
+
+        vista.findViewById<MaterialButton>(
+            R.id.btnCancelarTipo
+        ).setOnClickListener {
+            dialogo.dismiss()
+        }
+
+        dialogo.setOnShowListener {
+            dialogo.window?.setBackgroundDrawable(
+                Color.TRANSPARENT.toDrawable()
+            )
+        }
+
+        dialogo.show()
     }
 
 
