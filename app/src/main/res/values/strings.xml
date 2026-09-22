@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AppZetaR</string>
+    <string name="app_name">ZETA Admin</string>
 
     <!--TodoApp-->
     <string name="todo_title">Bienvenido..</string>
@@ -215,6 +215,7 @@
     <string name="admin_extra_actualizado">Extra actualizado</string>
     <string name="admin_extra_eliminado">Extra eliminado</string>
     <string name="admin_error_guardar_extra">No se pudo guardar el extra</string>
+
 
     <string name="admin_confirmar_eliminar">¿Eliminar «%1$s»?</string>
 
