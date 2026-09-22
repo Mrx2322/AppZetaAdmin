@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F7F7F7"
-    tools:context=".adminmenu.ActivityHistorialPedidosAdmin">
+    tools:context=".adminmenu.pedidosadmin.ActivityHistorialPedidosAdmin">
 
     <!-- Imagen decorativa de fondo. -->
     <ImageView
