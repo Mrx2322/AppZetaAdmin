@@ -1,248 +1,292 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginBottom="10dp"
-    app:cardBackgroundColor="#FFFFFF"
-    app:cardCornerRadius="18dp"
-    app:cardElevation="5dp">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tvEncabezadoFecha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="18dp">
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="2dp"
+        android:textColor="#164F52"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:text="@string/admin_history_today"
+        tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/tvNumeroPedido"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#111111"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            tools:text="@string/admin_order_number_preview" />
-
-        <TextView
-            android:id="@+id/tvFechaPedido"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="#777777"
-            android:textSize="13sp"
-            tools:text="@string/admin_order_date_preview" />
-
-        <TextView
-            android:id="@+id/tvEstadoPedido"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="#E8F5E9"
-            android:paddingStart="12dp"
-            android:paddingTop="6dp"
-            android:paddingEnd="12dp"
-            android:paddingBottom="6dp"
-            android:textColor="#2E7D32"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            tools:text="@string/admin_order_status_preview" />
-
-        <TextView
-            android:id="@+id/tvNombreUsuario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:textColor="#222222"
-            android:textSize="19sp"
-            android:textStyle="bold"
-            tools:text="@string/admin_order_customer_preview" />
-
-        <TextView
-            android:id="@+id/tvTelefono"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:textColor="#555555"
-            android:textSize="15sp"
-            tools:text="@string/admin_order_phone_preview" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="14dp"
-            android:background="#EEEEEE" />
-
-        <TextView
-            android:id="@+id/tvProductos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="4dp"
-            android:textColor="#333333"
-            android:textSize="15sp"
-            tools:text="@string/admin_order_item_products_preview" />
-
-        <TextView
-            android:id="@+id/tvTipoEntrega"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:textColor="#444444"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            tools:text="@string/admin_order_delivery_type_preview" />
-
-        <TextView
-            android:id="@+id/tvDireccion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:textColor="#555555"
-            android:textSize="15sp"
-            tools:text="@string/admin_order_address_preview" />
-
-        <TextView
-            android:id="@+id/tvReferencia"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="#777777"
-            android:textSize="14sp"
-            tools:text="@string/admin_order_reference_preview" />
-
-        <TextView
-            android:id="@+id/tvMetodoPago"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textColor="#555555"
-            android:textSize="15sp"
-            tools:text="@string/admin_order_payment_method_preview" />
-
-        <TextView
-            android:id="@+id/tvTotal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="end"
-            android:textColor="#111111"
-            android:textSize="21sp"
-            android:textStyle="bold"
-            tools:text="@string/admin_order_total_preview" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="4dp">
 
         <LinearLayout
-            android:id="@+id/layoutCambiarEstado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="18dp">
+
+            <TextView
+                android:id="@+id/tvNumeroPedido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#111111"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="@string/admin_order_number_preview" />
+
+            <TextView
+                android:id="@+id/tvFechaPedido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="#777777"
+                android:textSize="13sp"
+                tools:text="@string/admin_order_date_preview" />
+
+            <TextView
+                android:id="@+id/tvEstadoPedido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="#E8F5E9"
+                android:paddingStart="12dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="6dp"
+                android:textColor="#2E7D32"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="@string/admin_order_status_preview" />
+
+            <TextView
+                android:id="@+id/tvNombreUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:textColor="#222222"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                tools:text="@string/admin_order_customer_preview" />
+
+            <TextView
+                android:id="@+id/tvTelefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="#555555"
+                android:textSize="15sp"
+                tools:text="@string/admin_order_phone_preview" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="14dp"
                 android:layout_marginBottom="14dp"
                 android:background="#EEEEEE" />
 
             <TextView
+                android:id="@+id/tvProductos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/admin_order_progress_title"
+                android:lineSpacingExtra="4dp"
                 android:textColor="#333333"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                tools:text="@string/admin_order_item_products_preview" />
 
             <TextView
+                android:id="@+id/tvTipoEntrega"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:text="@string/admin_order_progress_description"
-                android:textColor="#888888"
-                android:textSize="12sp" />
+                android:layout_marginTop="14dp"
+                android:textColor="#444444"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:text="@string/admin_order_delivery_type_preview" />
+
+            <TextView
+                android:id="@+id/tvDireccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="#555555"
+                android:textSize="15sp"
+                tools:text="@string/admin_order_address_preview" />
+
+            <TextView
+                android:id="@+id/tvReferencia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="#777777"
+                android:textSize="14sp"
+                tools:text="@string/admin_order_reference_preview" />
+
+            <TextView
+                android:id="@+id/tvMetodoPago"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="#555555"
+                android:textSize="15sp"
+                tools:text="@string/admin_order_payment_method_preview" />
+
+            <TextView
+                android:id="@+id/tvTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="end"
+                android:textColor="#111111"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                tools:text="@string/admin_order_total_preview" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEliminarPedido"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="12dp"
+                android:minHeight="48dp"
+                android:text="@string/admin_history_delete_order"
+                android:textAllCaps="false"
+                android:textColor="@color/admin_history_delete"
+                android:visibility="gone"
+                app:cornerRadius="14dp"
+                app:icon="@android:drawable/ic_menu_delete"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                app:iconTint="@color/admin_history_delete"
+                app:rippleColor="@color/admin_history_delete_ripple"
+                app:strokeColor="@color/admin_history_delete"
+                app:strokeWidth="1dp"
+                tools:visibility="visible" />
 
             <LinearLayout
+                android:id="@+id/layoutCambiarEstado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="14dp"
+                    android:background="#EEEEEE" />
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal">
+                    android:text="@string/admin_order_progress_title"
+                    android:textColor="#333333"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnConfirmado"
-                        android:layout_width="0dp"
-                        android:layout_height="52dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:minHeight="48dp"
-                        android:text="@string/admin_order_status_confirmed"
-                        android:textAllCaps="false"
-                        android:textColor="#FFFFFF"
-                        android:textSize="13sp"
-                        app:backgroundTint="#E87520"
-                        app:cornerRadius="14dp"
-                        app:rippleColor="#40FFFFFF" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnPreparando"
-                        android:layout_width="0dp"
-                        android:layout_height="52dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_weight="1"
-                        android:minHeight="48dp"
-                        android:text="@string/admin_order_status_preparing"
-                        android:textAllCaps="false"
-                        android:textColor="#FFFFFF"
-                        android:textSize="13sp"
-                        app:backgroundTint="#E87520"
-                        app:cornerRadius="14dp"
-                        app:rippleColor="#40FFFFFF" />
-
-                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/admin_order_progress_description"
+                    android:textColor="#888888"
+                    android:textSize="12sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="9dp"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnEnCamino"
-                        android:layout_width="0dp"
-                        android:layout_height="52dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:minHeight="48dp"
-                        android:text="@string/admin_order_status_on_the_way"
-                        android:textAllCaps="false"
-                        android:textColor="#FFFFFF"
-                        android:textSize="13sp"
-                        app:backgroundTint="#E87520"
-                        app:cornerRadius="14dp"
-                        app:rippleColor="#40FFFFFF" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnEntregado"
-                        android:layout_width="0dp"
-                        android:layout_height="52dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_weight="1"
-                        android:minHeight="48dp"
-                        android:text="@string/admin_order_status_delivered"
-                        android:textAllCaps="false"
-                        android:textColor="#FFFFFF"
-                        android:textSize="13sp"
-                        app:backgroundTint="#2E7D32"
-                        app:cornerRadius="14dp"
-                        app:rippleColor="#40FFFFFF" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnConfirmado"
+                            android:layout_width="0dp"
+                            android:layout_height="52dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
+                            android:minHeight="48dp"
+                            android:text="@string/admin_order_status_confirmed"
+                            android:textAllCaps="false"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            app:backgroundTint="#E87520"
+                            app:cornerRadius="14dp"
+                            app:rippleColor="#40FFFFFF" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnPreparando"
+                            android:layout_width="0dp"
+                            android:layout_height="52dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:minHeight="48dp"
+                            android:text="@string/admin_order_status_preparing"
+                            android:textAllCaps="false"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            app:backgroundTint="#E87520"
+                            app:cornerRadius="14dp"
+                            app:rippleColor="#40FFFFFF" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="9dp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnEnCamino"
+                            android:layout_width="0dp"
+                            android:layout_height="52dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
+                            android:minHeight="48dp"
+                            android:text="@string/admin_order_status_on_the_way"
+                            android:textAllCaps="false"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            app:backgroundTint="#E87520"
+                            app:cornerRadius="14dp"
+                            app:rippleColor="#40FFFFFF" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnEntregado"
+                            android:layout_width="0dp"
+                            android:layout_height="52dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:minHeight="48dp"
+                            android:text="@string/admin_order_status_delivered"
+                            android:textAllCaps="false"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            app:backgroundTint="#2E7D32"
+                            app:cornerRadius="14dp"
+                            app:rippleColor="#40FFFFFF" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -250,6 +294,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-</androidx.cardview.widget.CardView>
+</LinearLayout>

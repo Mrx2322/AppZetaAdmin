@@ -15,10 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appzetaadmin.R
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
+import java.util.Calendar
 import java.util.Locale
+import java.util.TimeZone
 
 class ActivityPedidosAdmin : AppCompatActivity() {
 
@@ -313,30 +316,9 @@ class ActivityPedidosAdmin : AppCompatActivity() {
                             ?: 0L
                     }
 
-                    val cantidadAnterior =
-                        listaPedidos.size
-
-                    if (cantidadAnterior > 0) {
-
-                        listaPedidos.clear()
-
-                        adapter.notifyItemRangeRemoved(
-                            0,
-                            cantidadAnterior
-                        )
-                    }
-
-                    if (nuevosPedidos.isNotEmpty()) {
-
-                        listaPedidos.addAll(
-                            nuevosPedidos
-                        )
-
-                        adapter.notifyItemRangeInserted(
-                            0,
-                            nuevosPedidos.size
-                        )
-                    }
+                    adapter.actualizarPedidos(
+                        nuevosPedidos
+                    )
 
                     actualizarEstadoVacio()
                 }
@@ -450,6 +432,9 @@ class ActivityPedidosAdmin : AppCompatActivity() {
 
                 actualizaciones["fechaEntrega"] =
                     FieldValue.serverTimestamp()
+
+                actualizaciones["expiraEn"] =
+                    obtenerFechaExpiracion()
             }
 
             transaction.update(
@@ -482,6 +467,34 @@ class ActivityPedidosAdmin : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
             }
+    }
+
+    /**
+     * Conserva el pedido durante siete días calendario y lo hace
+     * vencer a las 00:00, usando siempre la zona horaria de Perú.
+     */
+    private fun obtenerFechaExpiracion(): Timestamp {
+
+        val zonaPeru =
+            TimeZone.getTimeZone("America/Lima")
+
+        val calendario =
+            Calendar.getInstance(zonaPeru).apply {
+
+                add(
+                    Calendar.DAY_OF_YEAR,
+                    DIAS_DE_RETENCION
+                )
+
+                set(Calendar.HOUR_OF_DAY, 0)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+            }
+
+        return Timestamp(
+            calendario.time
+        )
     }
 
     // =========================================================
@@ -613,5 +626,10 @@ class ActivityPedidosAdmin : AppCompatActivity() {
             null
 
         super.onStop()
+    }
+
+    companion object {
+
+        private const val DIAS_DE_RETENCION = 7
     }
 }

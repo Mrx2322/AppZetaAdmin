@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -8,11 +8,10 @@
     android:background="#F7F7F7"
     tools:context=".adminmenu.pedidosadmin.ActivityHistorialPedidosAdmin">
 
-    <!-- Imagen decorativa de fondo. -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.12"
+        android:alpha="0.10"
         android:contentDescription="@null"
         android:importantForAccessibility="no"
         android:scaleType="centerCrop"
@@ -27,11 +26,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="4dp"
             android:text="@string/admin_history_title"
-            android:textColor="#222222"
+            android:textColor="#172127"
             android:textSize="28sp"
             android:textStyle="bold" />
 
@@ -39,11 +37,86 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:layout_marginTop="2dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/admin_history_subtitle"
-            android:textColor="#777777"
+            android:text="@string/admin_history_seven_days_subtitle"
+            android:textColor="#66737A"
             android:textSize="14sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="20dp"
+            android:hint="@string/admin_history_search_hint"
+            app:boxBackgroundColor="#F2FFFFFF"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
+            app:boxStrokeColor="#607D80"
+            app:startIconDrawable="@android:drawable/ic_menu_search">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etBuscarHistorial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="#172127"
+                android:textColorHint="#78868C"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/grupoFiltrosHistorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            app:checkedButton="@id/btnFiltroTodos"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnFiltroTodos"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="@string/admin_history_filter_all"
+                android:textAllCaps="false"
+                android:textColor="#164F52"
+                app:strokeColor="#607D80" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnFiltroHoy"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="@string/admin_history_filter_today"
+                android:textAllCaps="false"
+                android:textColor="#164F52"
+                app:strokeColor="#607D80" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnFiltroAyer"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="@string/admin_history_filter_yesterday"
+                android:textAllCaps="false"
+                android:textColor="#164F52"
+                app:strokeColor="#607D80" />
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvHistorialPedidos"
@@ -51,8 +124,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:clipToPadding="false"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:paddingTop="8dp"
             android:paddingBottom="24dp"
             android:scrollbars="vertical"
             tools:itemCount="3"
@@ -68,7 +140,9 @@
         android:gravity="center"
         android:padding="30dp"
         android:text="@string/admin_history_empty_message"
-        android:textColor="#555555"
-        android:textSize="16sp" />
+        android:textColor="#556267"
+        android:textSize="16sp"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </FrameLayout>

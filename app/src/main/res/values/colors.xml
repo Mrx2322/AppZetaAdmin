@@ -11,30 +11,7 @@
     <color name="pedido_estado_rojo">#C62828</color>
     <color name="pedido_estado_rojo_claro">#FFEBEE</color>
 
-    <!-- Textos de la tarjeta de pedido del administrador -->
-    <string name="pedido_admin_numero">📋 Pedido #%1$04d</string>
-    <string name="pedido_admin_sin_numero">📋 Pedido sin número</string>
-    <string name="pedido_admin_fecha">📅 %1$s</string>
-    <string name="pedido_admin_fecha_no_disponible">📅 Fecha no disponible</string>
-    <string name="pedido_admin_cliente">👤 %1$s</string>
-    <string name="pedido_admin_telefono">📞 %1$s</string>
-    <string name="pedido_admin_sin_telefono">📞 Sin teléfono</string>
-    <string name="pedido_admin_delivery">🚚 Delivery</string>
-    <string name="pedido_admin_recojo_tienda">🏪 Recojo en tienda</string>
-    <string name="pedido_admin_direccion">📍 %1$s</string>
-    <string name="pedido_admin_sin_direccion">📍 Sin dirección</string>
-    <string name="pedido_admin_referencia">Referencia: %1$s</string>
-    <string name="pedido_admin_sin_referencia">Sin referencia</string>
-    <string name="pedido_admin_ubicacion_recojo">📍 Recojo en tienda</string>
-    <string name="pedido_admin_no_aplica">No aplica</string>
-    <string name="pedido_admin_pago">💳 %1$s · %2$s</string>
-    <string name="pedido_admin_total">💰 S/ %1$.2f</string>
-    <string name="pedido_admin_confirmado">Confirmado</string>
-    <string name="pedido_admin_en_preparacion">En preparación</string>
-    <string name="pedido_admin_entregado">Entregado</string>
-    <string name="pedido_admin_completado">✓ %1$s</string>
-    <string name="pedido_admin_sin_productos">🍽️ Sin productos</string>
-    <string name="pedido_admin_productos_titulo">🍽️ PRODUCTOS\n</string>
-    <string name="pedido_admin_producto">Producto</string>
-    <string name="pedido_admin_producto_detalle">• %1$d × %2$s — S/ %3$.2f\n</string>
+    <color name="admin_history_delete">#B3261E</color>
+    <color name="admin_history_delete_ripple">#1FB3261E</color>
+
 </resources>
