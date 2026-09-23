@@ -14,4 +14,14 @@
     <color name="admin_history_delete">#B3261E</color>
     <color name="admin_history_delete_ripple">#1FB3261E</color>
 
+    <!-- Historial de pedidos -->
+    <color name="admin_history_background">#F1F5F4</color>
+    <color name="admin_history_surface">#FFFFFFFF</color>
+    <color name="admin_history_search_background">#FFFFFFFF</color>
+    <color name="admin_history_primary">#165B5E</color>
+    <color name="admin_history_primary_soft">#6D9FA1</color>
+    <color name="admin_history_outline_soft">#D2E0DF</color>
+    <color name="admin_history_text_primary">#172127</color>
+    <color name="admin_history_text_secondary">#647278</color>
+
 </resources>

@@ -26,7 +26,7 @@
     <string name="precios_static">S/ 0.00</string>
     <string name="Description_extra">Eliminar extra</string>
 
-    <string name="admin_history_seven_days_subtitle">Pedidos entregados de los últimos 7 días</string>
+    <string name="admin_history_seven_days_subtitle">Pedidos entregados durante los últimos 7 días</string>
     <string name="admin_history_search_hint">Buscar pedido, cliente o teléfono</string>
     <string name="admin_history_filter_all">Todos</string>
     <string name="admin_history_filter_today">Hoy</string>
@@ -73,9 +73,9 @@
     <string name="agregar_extra">Agregar extra</string>
     <string name="h_name_extra">Nombre del extra</string>
 
-    <string name="admin_history_title">HISTORIAL</string>
+    <string name="admin_history_title">Historial de pedidos</string>
     <string name="admin_history_subtitle">Pedidos entregados</string>
-    <string name="admin_history_empty_message">📋\n\nNo hay pedidos entregados\n\nLos pedidos que sean entregados aparecerán aquí.</string>
+    <string name="admin_history_empty_message">📋\n\nNo hay pedidos entregados\n\nLos pedidos entregados aparecerán aquí.</string>
 
     <!--Login-->
     <string name="admin_logo_content_description">Logo de ZETA</string>
