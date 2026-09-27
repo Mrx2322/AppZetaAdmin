@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -133,6 +134,37 @@
                 android:textColor="#777777"
                 android:textSize="14sp"
                 tools:text="@string/admin_order_reference_preview" />
+
+            <!-- ================================================= -->
+            <!-- UBICACIÓN GPS DEL CLIENTE -->
+            <!-- ================================================= -->
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnVerUbicacion"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+
+                android:layout_marginTop="12dp"
+
+                android:minHeight="48dp"
+
+                android:text="@string/pedido_admin_ver_ubicacion"
+                android:textAllCaps="false"
+                android:textColor="#E87520"
+                android:textSize="14sp"
+                android:textStyle="bold"
+
+                android:visibility="gone"
+
+                app:backgroundTint="#FFF8F2"
+                app:cornerRadius="14dp"
+
+                app:strokeColor="#E87520"
+                app:strokeWidth="1dp"
+
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/tvMetodoPago"

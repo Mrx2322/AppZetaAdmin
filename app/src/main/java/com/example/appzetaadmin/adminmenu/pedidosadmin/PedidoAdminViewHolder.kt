@@ -1,6 +1,8 @@
 package com.example.appzetaadmin.adminmenu.pedidosadmin
 
+import android.content.Intent
 import android.graphics.Typeface
+import androidx.core.net.toUri
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -60,6 +62,9 @@ class PedidoAdminViewHolder(
 
     private val layoutCambiarEstado: View =
         itemView.findViewById(R.id.layoutCambiarEstado)
+
+    private val btnVerUbicacion: MaterialButton =
+        itemView.findViewById(R.id.btnVerUbicacion)
 
     private val btnConfirmado: MaterialButton =
         itemView.findViewById(R.id.btnConfirmado)
@@ -127,6 +132,7 @@ class PedidoAdminViewHolder(
         mostrarFecha(pedido)
         mostrarCliente(pedido)
         mostrarEntrega(pedido)
+        mostrarUbicacion(pedido)
         mostrarPago(pedido)
         mostrarProductos(pedido.productos)
         mostrarEstado(pedido.estadoPedido)
@@ -288,6 +294,46 @@ class PedidoAdminViewHolder(
                 context.getString(
                     R.string.pedido_admin_no_aplica
                 )
+        }
+    }
+
+    // =========================================================
+    // UBICACIÓN DEL CLIENTE
+    // =========================================================
+
+    private fun mostrarUbicacion(
+        pedido: PedidoAdmin
+    ) {
+
+        if (!pedido.tieneUbicacion()) {
+
+            btnVerUbicacion.visibility =
+                View.GONE
+
+            btnVerUbicacion.setOnClickListener(
+                null
+            )
+
+            return
+        }
+
+        btnVerUbicacion.visibility =
+            View.VISIBLE
+
+        btnVerUbicacion.setOnClickListener {
+
+            val uri =
+                pedido.ubicacionMaps.toUri()
+
+            val intent =
+                Intent(
+                    Intent.ACTION_VIEW,
+                    uri
+                )
+
+            context.startActivity(
+                intent
+            )
         }
     }
 

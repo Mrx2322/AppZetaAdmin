@@ -24,6 +24,16 @@ data class PedidoAdmin(
 
     val telefono: String = "",
 
+    // =========================================================
+    // UBICACIÓN GPS OPCIONAL
+    // =========================================================
+
+    val latitud: Double? = null,
+
+    val longitud: Double? = null,
+
+    val ubicacionMaps: String = "",
+
     val metodoPago: String = "",
 
     val estadoPago: String = "",
@@ -40,5 +50,13 @@ data class PedidoAdmin(
             "Delivery",
             ignoreCase = true
         )
+    }
+
+    fun tieneUbicacion(): Boolean {
+
+        return esDelivery() &&
+                latitud != null &&
+                longitud != null &&
+                ubicacionMaps.isNotBlank()
     }
 }

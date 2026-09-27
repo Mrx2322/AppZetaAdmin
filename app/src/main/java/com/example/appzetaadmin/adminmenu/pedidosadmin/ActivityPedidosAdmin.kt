@@ -282,6 +282,21 @@ class ActivityPedidosAdmin : AppCompatActivity() {
                                         "telefono"
                                     ).orEmpty(),
 
+                                latitud =
+                                    documento.getDouble(
+                                        "latitud"
+                                    ),
+
+                                longitud =
+                                    documento.getDouble(
+                                        "longitud"
+                                    ),
+
+                                ubicacionMaps =
+                                    documento.getString(
+                                        "ubicacionMaps"
+                                    ).orEmpty(),
+
                                 metodoPago =
                                     documento.getString(
                                         "metodoPago"

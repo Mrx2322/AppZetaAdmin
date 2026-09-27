@@ -15,6 +15,8 @@
     <string name="todo_dialog_category_personal">Personal</string>
     <string name="todo_dialog_add_task_button">Crear tarea</string>
 
+    <string name="pedido_admin_ver_ubicacion">Ver ubicación</string>
+
     <!--Card de Menu-->
     <string name="texto_editar">Editar</string>
     <string name="texto_eliminar">Eliminar</string>
