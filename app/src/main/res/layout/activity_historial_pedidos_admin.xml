@@ -1,158 +1,317 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/admin_history_background"
+
     tools:context=".adminmenu.pedidosadmin.ActivityHistorialPedidosAdmin">
+
+
+    <!-- ===================================================== -->
+    <!-- FONDO -->
+    <!-- ===================================================== -->
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.07"
+
+        android:alpha="0.04"
         android:contentDescription="@null"
         android:importantForAccessibility="no"
+
         android:scaleType="centerCrop"
         android:src="@drawable/fondo_menu" />
+
+
+    <!-- ===================================================== -->
+    <!-- CONTENIDO -->
+    <!-- ===================================================== -->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:orientation="vertical">
+
+
+        <!-- ================================================= -->
+        <!-- CABECERA -->
+        <!-- ================================================= -->
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+
             app:cardBackgroundColor="@color/admin_history_surface"
-            app:cardCornerRadius="24dp"
+            app:cardCornerRadius="26dp"
             app:cardElevation="2dp"
+
             app:strokeColor="@color/admin_history_outline_soft"
             app:strokeWidth="1dp">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:orientation="vertical"
-                android:padding="18dp">
+
+                android:paddingStart="20dp"
+                android:paddingTop="22dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="20dp">
+
+
+                <!-- TÍTULO -->
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     android:text="@string/admin_history_title"
+
                     android:textColor="@color/admin_history_text_primary"
-                    android:textSize="26sp"
+                    android:textSize="28sp"
                     android:textStyle="bold" />
 
+
+                <!-- SUBTÍTULO -->
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
+
+                    android:layout_marginTop="4dp"
+
                     android:text="@string/admin_history_seven_days_subtitle"
+
                     android:textColor="@color/admin_history_text_secondary"
                     android:textSize="14sp" />
 
+
+                <!-- DETALLE NARANJA -->
+
+                <View
+                    android:layout_width="42dp"
+                    android:layout_height="4dp"
+
+                    android:layout_marginTop="14dp"
+
+                    android:background="#E87520" />
+
+
+                <!-- ================================================= -->
+                <!-- BUSCADOR -->
+                <!-- ================================================= -->
+
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     android:layout_marginTop="18dp"
+
                     android:hint="@string/admin_history_search_hint"
+
                     app:boxBackgroundColor="@color/admin_history_search_background"
-                    app:boxCornerRadiusBottomEnd="16dp"
-                    app:boxCornerRadiusBottomStart="16dp"
-                    app:boxCornerRadiusTopEnd="16dp"
-                    app:boxCornerRadiusTopStart="16dp"
-                    app:boxStrokeColor="@color/admin_history_primary"
-                    app:endIconMode="clear_text"
-                    app:endIconTint="@color/admin_history_text_secondary"
+                    app:boxBackgroundMode="outline"
+
+                    app:boxCornerRadiusBottomEnd="18dp"
+                    app:boxCornerRadiusBottomStart="18dp"
+                    app:boxCornerRadiusTopEnd="18dp"
+                    app:boxCornerRadiusTopStart="18dp"
+
+                    app:boxStrokeColor="@color/admin_history_input_stroke"
+                    app:boxStrokeWidth="1dp"
+                    app:boxStrokeWidthFocused="2dp"
+
+                    app:hintTextColor="@color/admin_history_input_hint"
+
                     app:startIconDrawable="@android:drawable/ic_menu_search"
-                    app:startIconTint="@color/admin_history_primary">
+                    app:startIconTint="#E87520"
+
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/admin_history_text_secondary">
+
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etBuscarHistorial"
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
                         android:imeOptions="actionSearch"
                         android:inputType="text"
+
                         android:maxLines="1"
+
                         android:textColor="@color/admin_history_text_primary"
                         android:textColorHint="@color/admin_history_text_secondary"
+
                         android:textSize="15sp" />
+
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+
+                <!-- ================================================= -->
+                <!-- FILTROS -->
+                <!-- ================================================= -->
+
                 <com.google.android.material.button.MaterialButtonToggleGroup
                     android:id="@+id/grupoFiltrosHistorial"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+
+                    android:layout_marginTop="14dp"
+
                     app:checkedButton="@id/btnFiltroTodos"
                     app:selectionRequired="true"
                     app:singleSelection="true">
 
+
+                    <!-- TODOS -->
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnFiltroTodos"
+
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
                         android:layout_width="0dp"
                         android:layout_height="48dp"
+
                         android:layout_weight="1"
+
                         android:text="@string/admin_history_filter_all"
-                        android:textAllCaps="false" />
+                        android:textAllCaps="false"
+
+                        android:textColor="@color/admin_history_filter_text"
+                        android:textStyle="bold"
+
+                        app:backgroundTint="@color/admin_history_filter_background"
+
+                        app:strokeColor="@color/admin_history_filter_stroke"
+                        app:strokeWidth="1dp" />
+
+
+                    <!-- HOY -->
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnFiltroHoy"
+
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
                         android:layout_width="0dp"
                         android:layout_height="48dp"
+
                         android:layout_weight="1"
+
                         android:text="@string/admin_history_filter_today"
-                        android:textAllCaps="false" />
+                        android:textAllCaps="false"
+
+                        android:textColor="@color/admin_history_filter_text"
+                        android:textStyle="bold"
+
+                        app:backgroundTint="@color/admin_history_filter_background"
+
+                        app:strokeColor="@color/admin_history_filter_stroke"
+                        app:strokeWidth="1dp" />
+
+
+                    <!-- AYER -->
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnFiltroAyer"
+
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
                         android:layout_width="0dp"
                         android:layout_height="48dp"
+
                         android:layout_weight="1"
+
                         android:text="@string/admin_history_filter_yesterday"
-                        android:textAllCaps="false" />
+                        android:textAllCaps="false"
+
+                        android:textColor="@color/admin_history_filter_text"
+                        android:textStyle="bold"
+
+                        app:backgroundTint="@color/admin_history_filter_background"
+
+                        app:strokeColor="@color/admin_history_filter_stroke"
+                        app:strokeWidth="1dp" />
+
 
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 
+
             </LinearLayout>
+
 
         </com.google.android.material.card.MaterialCardView>
 
+
+        <!-- ================================================= -->
+        <!-- LISTA DE PEDIDOS -->
+        <!-- ================================================= -->
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvHistorialPedidos"
+
             android:layout_width="match_parent"
             android:layout_height="0dp"
+
             android:layout_weight="1"
+
             android:clipToPadding="false"
-            android:paddingTop="8dp"
-            android:paddingBottom="24dp"
+
+            android:paddingTop="10dp"
+            android:paddingBottom="28dp"
+
             android:scrollbars="vertical"
+
             tools:itemCount="3"
             tools:listitem="@layout/item_pedido_admin" />
 
+
     </LinearLayout>
+
+
+    <!-- ===================================================== -->
+    <!-- SIN PEDIDOS -->
+    <!-- ===================================================== -->
 
     <TextView
         android:id="@+id/tvSinHistorial"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_gravity="center"
+
         android:gravity="center"
+
         android:padding="40dp"
+
         android:text="@string/admin_history_empty_message"
+
         android:textColor="@color/admin_history_text_secondary"
         android:textSize="16sp"
+
         android:visibility="gone"
+
         tools:visibility="visible" />
+
 
 </FrameLayout>

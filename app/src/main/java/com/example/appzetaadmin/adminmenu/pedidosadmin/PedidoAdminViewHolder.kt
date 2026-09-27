@@ -2,6 +2,7 @@ package com.example.appzetaadmin.adminmenu.pedidosadmin
 
 import android.content.Intent
 import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
 import androidx.core.net.toUri
 import android.view.View
 import android.widget.TextView
@@ -381,7 +382,7 @@ class PedidoAdminViewHolder(
 
             "Entregado" -> {
 
-                tvEstadoPedido.setBackgroundColor(
+                aplicarFondoEstado(
                     colorVerdeClaro
                 )
 
@@ -392,7 +393,7 @@ class PedidoAdminViewHolder(
 
             "Cancelado" -> {
 
-                tvEstadoPedido.setBackgroundColor(
+                aplicarFondoEstado(
                     colorRojoClaro
                 )
 
@@ -403,7 +404,7 @@ class PedidoAdminViewHolder(
 
             else -> {
 
-                tvEstadoPedido.setBackgroundColor(
+                aplicarFondoEstado(
                     colorNaranjaClaro
                 )
 
@@ -412,6 +413,36 @@ class PedidoAdminViewHolder(
                 )
             }
         }
+    }
+
+
+    // =========================================================
+    // FONDO REDONDEADO DEL ESTADO
+    // =========================================================
+
+    private fun aplicarFondoEstado(
+        color: Int
+    ) {
+
+        val radio =
+            10f *
+                    context.resources
+                        .displayMetrics
+                        .density
+
+        tvEstadoPedido.background =
+            GradientDrawable().apply {
+
+                shape =
+                    GradientDrawable.RECTANGLE
+
+                cornerRadius =
+                    radio
+
+                setColor(
+                    color
+                )
+            }
     }
 
     // =========================================================
