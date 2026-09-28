@@ -177,18 +177,21 @@ class ActivityMenu : AppCompatActivity() {
 
 
     // =========================================================
-    // ON DESTROY
+    // ON STOP
     // =========================================================
 
-    override fun onDestroy() {
-
-        super.onDestroy()
+    override fun onStop() {
 
         listenerMenu?.remove()
+        listenerMenu = null
 
         listenerEntradas?.remove()
+        listenerEntradas = null
 
         listenerExtras?.remove()
+        listenerExtras = null
+
+        super.onStop()
     }
 
 
