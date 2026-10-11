@@ -19,6 +19,7 @@
         android:paddingEnd="22dp"
         android:paddingBottom="16dp">
 
+        <!-- TÍTULO -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,6 +28,7 @@
             android:textSize="23sp"
             android:textStyle="bold" />
 
+        <!-- DESCRIPCIÓN -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,6 +38,7 @@
             android:textColor="#BFD4D6"
             android:textSize="14sp" />
 
+        <!-- MENÚS -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnTipoPlato"
             android:layout_width="match_parent"
@@ -54,6 +57,27 @@
             app:strokeColor="#527CA3A8"
             app:strokeWidth="1dp" />
 
+        <!-- CENAS: NUEVO -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTipoCena"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical|start"
+            android:text="@string/admin_tipo_cena"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="#CC18515A"
+            app:cornerRadius="18dp"
+            app:icon="@android:drawable/ic_menu_manage"
+            app:iconPadding="14dp"
+            app:iconTint="#FFB066"
+            app:strokeColor="#527CA3A8"
+            app:strokeWidth="1dp" />
+
+        <!-- ENTRADAS -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnTipoEntrada"
             android:layout_width="match_parent"
@@ -73,6 +97,7 @@
             app:strokeColor="#527CA3A8"
             app:strokeWidth="1dp" />
 
+        <!-- EXTRAS -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnTipoExtra"
             android:layout_width="match_parent"
@@ -92,6 +117,7 @@
             app:strokeColor="#527CA3A8"
             app:strokeWidth="1dp" />
 
+        <!-- CANCELAR -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCancelarTipo"
             android:layout_width="wrap_content"

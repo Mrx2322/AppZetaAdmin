@@ -17,6 +17,8 @@
 
     <string name="pedido_admin_ver_ubicacion">Ver ubicación</string>
 
+    <string name="admin_menu_cenas_section">Cenas</string>
+
     <!--Card de Menu-->
     <string name="texto_editar">Editar</string>
     <string name="texto_eliminar">Eliminar</string>
@@ -290,5 +292,25 @@
     <string name="pedido_admin_productos_titulo">🍽️ PRODUCTOS\n</string>
     <string name="pedido_admin_producto">Producto</string>
     <string name="pedido_admin_producto_detalle">• %1$d × %2$s — S/ %3$.2f\n</string>
+
+    <!-- CENAS -->
+    <string name="admin_agregar_cena">Agregar cena</string>
+    <string name="admin_editar_cena">Editar cena</string>
+    <string name="admin_nombre_cena">Nombre de la cena</string>
+    <string name="admin_precio_cena">Precio de la cena (S/)</string>
+    <string name="admin_stock_cena">Stock de la cena</string>
+    <string name="admin_cena_agregada_stock">Cena agregada. Stock inicial: %1$d</string>
+    <string name="admin_error_guardar_cena">No se pudo guardar la cena</string>
+    <string name="admin_cena_actualizada">Cena actualizada correctamente</string>
+    <string name="admin_error_actualizar_cena">No se pudo actualizar la cena</string>
+    <string name="admin_eliminar_cena">Eliminar cena</string>
+    <string name="admin_confirmar_eliminar_cena">¿Deseas eliminar la cena "%1$s"?</string>
+    <string name="admin_cena_eliminada">Cena eliminada correctamente</string>
+    <string name="admin_error_eliminar_cena">No se pudo eliminar la cena</string>
+
+    <string name="admin_tipo_cena">Agregar cena</string>
+
+    <string name="admin_agregar_cena_subtitulo">Ingresa los datos y define el stock inicial de esta cena.</string>
+    <string name="admin_unidades">unidades</string>
 
 </resources>
