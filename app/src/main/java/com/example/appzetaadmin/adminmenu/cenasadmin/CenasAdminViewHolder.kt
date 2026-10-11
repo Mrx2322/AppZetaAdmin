@@ -31,7 +31,7 @@ class CenasAdminViewHolder(
     ) {
         tvNombreCena.text = cena.name
         tvPrecio.text = "S/ %.2f · Stock: %d".format(
-            java.util.Locale("es", "PE"),
+            java.util.Locale.forLanguageTag("es-PE"),
             cena.precio,
             cena.stock
         )
