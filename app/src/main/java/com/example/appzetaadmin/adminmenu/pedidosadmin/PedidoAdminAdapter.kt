@@ -18,7 +18,9 @@ class PedidoAdminAdapter(
     private val listaPedidos: MutableList<PedidoAdmin>,
     private val onCambiarEstado: (PedidoAdmin, String) -> Unit,
     private val modoHistorial: Boolean = false,
-    private val onEliminarPedido: (PedidoAdmin) -> Unit = {}
+    private val onEliminarPedido: (PedidoAdmin) -> Unit = {},
+    private val onAprobarSolicitud: (PedidoAdmin) -> Unit = {},
+    private val onRechazarSolicitud: (PedidoAdmin) -> Unit = {}
 ) : RecyclerView.Adapter<PedidoAdminViewHolder>() {
 
     private val zonaPeru = TimeZone.getTimeZone("America/Lima")
@@ -47,7 +49,9 @@ class PedidoAdminAdapter(
         holder.render(
             pedido = pedido,
             onCambiarEstado = onCambiarEstado,
-            modoHistorial = modoHistorial
+            modoHistorial = modoHistorial,
+            onAprobarSolicitud = onAprobarSolicitud,
+            onRechazarSolicitud = onRechazarSolicitud
         )
     }
 

@@ -284,6 +284,19 @@
     <string name="pedido_admin_no_aplica">No aplica</string>
     <string name="pedido_admin_pago">💳 %1$s · %2$s</string>
     <string name="pedido_admin_total">💰 S/ %1$.2f</string>
+    <string name="pedido_admin_observacion">Observación: %1$s</string>
+    <string name="solicitud_admin_total_estimado">💳 %1$s · %2$s</string>
+    <string name="solicitud_admin_total_estimado_valor">💰 Total estimado: S/ %1$.2f</string>
+    <string name="solicitud_admin_revision_titulo">Revisar solicitud</string>
+    <string name="solicitud_admin_revision_detalle">Al aprobar se verificará el precio y stock actual.</string>
+    <string name="solicitud_admin_aprobar">Aprobar pedido</string>
+    <string name="solicitud_admin_rechazar">Rechazar</string>
+    <string name="solicitud_admin_rechazo_titulo">Rechazar solicitud</string>
+    <string name="solicitud_admin_rechazo_motivo">Motivo del rechazo</string>
+    <string name="solicitud_admin_error_productos">No se pudo validar uno o más productos. Revisa el catálogo y el stock.</string>
+    <string name="solicitud_admin_aprobada">Solicitud aprobada. Pedido #%1$d creado.</string>
+    <string name="solicitud_admin_rechazada">Solicitud rechazada.</string>
+    <string name="solicitud_admin_sin_pendientes">No hay pedidos ni solicitudes pendientes.</string>
     <string name="pedido_admin_confirmado">Confirmado</string>
     <string name="pedido_admin_en_preparacion">En preparación</string>
     <string name="pedido_admin_entregado">Entregado</string>
@@ -312,5 +325,9 @@
 
     <string name="admin_agregar_cena_subtitulo">Ingresa los datos y define el stock inicial de esta cena.</string>
     <string name="admin_unidades">unidades</string>
+
+    <string name="solicitud_admin_numero">Código: %1$s</string>
+    <string name="solicitud_admin_titulo">Solicitud de pedido</string>
+    <string name="solicitud_admin_estado">PENDIENTE</string>
 
 </resources>

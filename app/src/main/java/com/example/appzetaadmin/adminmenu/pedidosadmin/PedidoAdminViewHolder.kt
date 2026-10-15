@@ -30,6 +30,9 @@ class PedidoAdminViewHolder(
     private val tvFechaPedido: TextView =
         itemView.findViewById(R.id.tvFechaPedido)
 
+    private val tvCodigoSolicitud: TextView =
+        itemView.findViewById(R.id.tvCodigoSolicitud)
+
     private val tvNombreUsuario: TextView =
         itemView.findViewById(R.id.tvNombreUsuario)
 
@@ -38,6 +41,9 @@ class PedidoAdminViewHolder(
 
     private val tvProductos: TextView =
         itemView.findViewById(R.id.tvProductos)
+
+    private val tvObservacion: TextView =
+        itemView.findViewById(R.id.tvObservacion)
 
     private val tvTipoEntrega: TextView =
         itemView.findViewById(R.id.tvTipoEntrega)
@@ -78,6 +84,15 @@ class PedidoAdminViewHolder(
 
     private val btnEntregado: MaterialButton =
         itemView.findViewById(R.id.btnEntregado)
+
+    private val layoutRevisionSolicitud: View =
+        itemView.findViewById(R.id.layoutRevisionSolicitud)
+
+    private val btnAprobarSolicitud: MaterialButton =
+        itemView.findViewById(R.id.btnAprobarSolicitud)
+
+    private val btnRechazarSolicitud: MaterialButton =
+        itemView.findViewById(R.id.btnRechazarSolicitud)
 
     // =========================================================
     // COLORES
@@ -126,7 +141,9 @@ class PedidoAdminViewHolder(
     fun render(
         pedido: PedidoAdmin,
         onCambiarEstado: (PedidoAdmin, String) -> Unit,
-        modoHistorial: Boolean = false
+        modoHistorial: Boolean = false,
+        onAprobarSolicitud: (PedidoAdmin) -> Unit = {},
+        onRechazarSolicitud: (PedidoAdmin) -> Unit = {}
     ) {
 
         mostrarNumeroPedido(pedido)
@@ -136,9 +153,27 @@ class PedidoAdminViewHolder(
         mostrarUbicacion(pedido)
         mostrarPago(pedido)
         mostrarProductos(pedido.productos)
+        if (pedido.observacion.isBlank()) {
+            tvObservacion.visibility = View.GONE
+        } else {
+            tvObservacion.text = context.getString(
+                R.string.pedido_admin_observacion,
+                pedido.observacion
+            )
+            tvObservacion.visibility = View.VISIBLE
+        }
         mostrarEstado(pedido.estadoPedido)
 
-        if (modoHistorial) {
+        if (pedido.esSolicitud && !modoHistorial) {
+            layoutCambiarEstado.visibility = View.GONE
+            layoutRevisionSolicitud.visibility = View.VISIBLE
+            btnAprobarSolicitud.setOnClickListener { onAprobarSolicitud(pedido) }
+            btnRechazarSolicitud.setOnClickListener { onRechazarSolicitud(pedido) }
+        } else {
+            layoutRevisionSolicitud.visibility = View.GONE
+        }
+
+        if (modoHistorial || pedido.esSolicitud) {
 
             layoutCambiarEstado.visibility =
                 View.GONE
@@ -162,6 +197,20 @@ class PedidoAdminViewHolder(
     private fun mostrarNumeroPedido(
         pedido: PedidoAdmin
     ) {
+
+        if (pedido.esSolicitud) {
+            tvNumeroPedido.text = context.getString(R.string.solicitud_admin_titulo)
+            tvNumeroPedido.textSize = 18f
+            tvCodigoSolicitud.text = context.getString(
+                R.string.solicitud_admin_numero,
+                pedido.id.take(8)
+            )
+            tvCodigoSolicitud.visibility = View.VISIBLE
+            return
+        }
+
+        tvNumeroPedido.textSize = 21f
+        tvCodigoSolicitud.visibility = View.GONE
 
         tvNumeroPedido.text =
             if (pedido.numeroPedido > 0L) {
@@ -358,6 +407,18 @@ class PedidoAdminViewHolder(
                 R.string.pedido_admin_total,
                 pedido.total
             )
+
+        if (pedido.esSolicitud) {
+            tvMetodoPago.text = context.getString(
+                R.string.pedido_admin_pago,
+                pedido.metodoPago,
+                pedido.estadoPago
+            )
+            tvTotal.text = context.getString(
+                R.string.solicitud_admin_total_estimado_valor,
+                pedido.total
+            )
+        }
     }
 
     // =========================================================
@@ -367,6 +428,14 @@ class PedidoAdminViewHolder(
     private fun mostrarEstado(
         estadoOriginal: String
     ) {
+
+        //noinspection SpellCheckingInspection
+        if (estadoOriginal.equals("Pendiente de aprobacion", ignoreCase = true)) {
+            tvEstadoPedido.text = context.getString(R.string.solicitud_admin_estado)
+            aplicarFondoEstado(colorNaranjaClaro)
+            tvEstadoPedido.setTextColor(colorNaranja)
+            return
+        }
 
         val estado =
             normalizarEstado(
@@ -729,7 +798,7 @@ class PedidoAdminViewHolder(
                     ?: 1
 
             val precio =
-                (producto["precio"] as? Number)
+                ((producto["precio"] ?: producto["precioEstimado"]) as? Number)
                     ?.toDouble()
                     ?: 0.0
 
@@ -741,6 +810,21 @@ class PedidoAdminViewHolder(
                     precio * cantidad
                 )
             )
+
+            val entradas = producto["entradas"] as? List<*>
+            val nombresEntradas = entradas.orEmpty().mapNotNull { entradaAny ->
+                val entrada = entradaAny as? Map<*, *> ?: return@mapNotNull null
+                val nombreEntrada = entrada["nombre"]?.toString().orEmpty()
+                if (nombreEntrada.isBlank()) null else {
+                    val cantidadEntrada = (entrada["cantidad"] as? Number)?.toInt() ?: 1
+                    if (cantidadEntrada > 1) "$cantidadEntrada × $nombreEntrada" else nombreEntrada
+                }
+            }
+            if (nombresEntradas.isNotEmpty()) {
+                texto.append("    Entradas: ")
+                    .append(nombresEntradas.joinToString())
+                    .append('\n')
+            }
         }
 
         tvProductos.text =
@@ -771,6 +855,7 @@ class PedidoAdminViewHolder(
 
             "preparando",
             "en preparación",
+            //noinspection SpellCheckingInspection
             "en preparacion" ->
                 "En preparación"
 

@@ -40,7 +40,11 @@ data class PedidoAdmin(
 
     val estadoPedido: String = "",
 
-    val productos: List<Map<String, Any>> = emptyList()
+    val productos: List<Map<String, Any>> = emptyList(),
+
+    val esSolicitud: Boolean = false,
+
+    val observacion: String = ""
 
 ) {
 
